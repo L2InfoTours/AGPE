@@ -37,6 +37,12 @@ public class Flex extends JFX.mote.Component{
 	}
 	Pane table;
 	protected List<Element> content = new ArrayList<Element>();
+	public List<Element> getContent() {
+		return content;
+	}
+	public void setContent(List<Element> content) {
+		this.content = content;
+	}
 	public static final int Row = 1;
 	public static final int Column = 0;
 	private int type;

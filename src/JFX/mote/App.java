@@ -31,7 +31,6 @@ public class App extends Application{
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setTitle(title);
-
 		Rectangle rect = new Rectangle(width,height);
 		rect.setArcHeight(16);
 		rect.setArcWidth(16);

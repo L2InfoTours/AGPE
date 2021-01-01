@@ -14,6 +14,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 
 public abstract class Panel<T extends Pane> extends Component implements Element{
 	protected T layout;
@@ -43,6 +44,7 @@ public abstract class Panel<T extends Pane> extends Component implements Element
 	public Panel(String name) {
 		this((T) new StackPane(),name);
 	}
+
 	/**
 	 * Removes all of the elements from this list.
 	 */

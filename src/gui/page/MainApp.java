@@ -1,7 +1,9 @@
 package gui.page;
 
 import JFX.mote.Position;
+import JFX.mote.controls.DatePicker;
 import JFX.mote.layout.Panel;
+import JFX.mote.layout.PanelManager;
 import javafx.scene.layout.BorderPane;
 
 public class MainApp extends Panel<BorderPane>{
@@ -23,6 +25,10 @@ public class MainApp extends Panel<BorderPane>{
 		add(side);
 		calendar.position = Position.Center;
 		add(calendar);
-		System.out.println("é");
+		//calendar.setLookup(8,12,1,1);
+		DatePicker dp = (DatePicker) PanelManager.get("datepicker");
+		dp.setOnChange(event->{
+			calendar.setLookup(dp.getValue());
+		});
 	}
 }
