@@ -17,15 +17,18 @@ public class Launcher {
 
 	public static void main(String[] args) {
 		System.out.println("app");
-		Frame frame = new Frame("Xame");
+		Frame frame = new Frame("AGPE");
 		Login login = new Login("login");
 		login.setErrorMessage("invalid");
 		login.setSubmitAction(event->{
 			System.out.println(login.getUsername());
 			System.out.println(login.getPassWord());
+			login.next();
 		});
 		List<TimeExamElement> diary = Arrays.asList(
-				new TimeExamElement("F 021","Français",LocalDateTime.of(2020, 12, 30, 12, 30),LocalTime.of(1, 30),null)
+				new TimeExamElement("F 021","Français",LocalDateTime.of(2020, 12, 30, 12, 30),LocalTime.of(1, 30),null),
+				new TimeExamElement("F 021","Français",LocalDateTime.of(2020, 12, 31, 11, 30),LocalTime.of(1, 00),null),
+				new TimeExamElement("F 021","Français",LocalDateTime.of(2021, 01, 1, 12, 15),LocalTime.of(1, 45),null)
 				);
 		List<List<TimeExamElement>> diaries = Arrays.asList(
 				diary,diary

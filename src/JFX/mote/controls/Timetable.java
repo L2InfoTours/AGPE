@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.Locale;
 
 import JFX.mote.App;
-import JFX.mote.Component;
 import JFX.mote.Element;
+import JFX.mote.layout.Flex;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -24,13 +24,39 @@ import javafx.scene.paint.Color;
  *
  * @param <T extends TimetableElement>
  */
-public class Timetable<T extends TimetableElement> extends Component implements Runnable {
+public class Timetable<T extends TimetableElement> extends Flex implements Runnable {
 	private TemporalField WEEK_OF_YEAR = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 	List<T> TimeElements;
 	LocalDate lookup;
 	private int lookupDays = 7;
 	private int lookupHours = 12;
 	private int offestHours = 8;
+	private int offestDays = 1;
+	public LocalDate getLookup() {
+		return lookup;
+	}
+	public void setLookup(LocalDate lookup) {
+		this.lookup = lookup;
+		update();
+	}
+	public int getLookupDays() {
+		return lookupDays;
+	}
+	public void setLookupDays(int lookupDays) {
+		this.lookupDays = lookupDays;
+	}
+	public int getLookupHours() {
+		return lookupHours;
+	}
+	public void setLookupHours(int lookupHours) {
+		this.lookupHours = lookupHours;
+	}
+	public int getOffestHours() {
+		return offestHours;
+	}
+	public void setOffestHours(int offestHours) {
+		this.offestHours = offestHours;
+	}
 	List<List<Element>> content = new ArrayList<List<Element>>();
 	Canvas table;
 	private int divWidth;
@@ -49,59 +75,80 @@ public class Timetable<T extends TimetableElement> extends Component implements 
 		super();
 		TimeElements = diary;
 		lookup = LocalDate.now();
+		table = new Canvas();
+		ctx = table.getGraphicsContext2D();
+		table.setOnMouseClicked(x->{
+			forEachClickEvent(x);
+		});
+		height = width = 512;
+		width += 128;
+		bestFit();
+		table.setWidth(width);
+		table.setHeight(height);
+		autosize();
+		add(table);
 	}
 	@Override
 	public void setSize(double width, double height) {
-		super.setSize(width, height);
-		update();
 		this.height = (int) height;
 		this.width = (int) width;
-		table.setWidth(width);
+		bestFit();
+		super.setSize(this.width, height);
+		table.setWidth(this.width);
 		table.setHeight(height);
+		update();
 	}
 	/**
 	 * upadte the timetable canvas
 	 */
 	public void update() {
-		ctx.clearRect(0, 0, width, height);
-		divWidth = width/(lookupDays+1);
-		divHeight = height/(lookupHours*2+1);
-		int d = 16;
-		for(DayOfWeek x : DayOfWeek.values()){
-			String day = x.getDisplayName(TextStyle.FULL, Locale.getDefault());
-			day = day.substring(0, 1).toUpperCase()+day.substring(1) ;
-			ctx.setFill(Color.grayRgb(96));
-			d+=divWidth;
-			ctx.fillText(day, d,16);
-			ctx.setFill(Color.grayRgb(178));
-			ctx.fillRect(x.getValue()*divWidth, 0, 2, height);
-		}
-		ctx.fillRect(0, divHeight, width, 2);
-		ctx.setFill(Color.grayRgb(119));
-		for(int h = 0;h<lookupHours*2;h++) {
-			String hr = h%2==0?(h/2+offestHours)+":00":((h-1)/2+offestHours)+":30";
-			if(h%2==0)
-				ctx.fillRect(divWidth, (h+2)*divHeight, width-divWidth, 1);
-			ctx.fillText(hr, 8,(h+2.5)*divHeight);
-		}
-		int week = lookup.get(WEEK_OF_YEAR);
-		TimeElements.forEach(te ->{
-			if(te.isWeek(week)) {
-				drawCase(te);
+		if(ctx != null) {	
+			ctx.clearRect(0, 0, width, height);
+			ctx.setFill(Color.WHITESMOKE);
+			ctx.fillRect(0, 0, width, height);
+			System.out.println(width);
+			divWidth = (int) (width/(lookupDays+1.1));
+			divHeight = height/(lookupHours*2+1);
+			int d = 16;
+			for(DayOfWeek x : DayOfWeek.values()){
+				if(x.getValue()>offestDays-1 && x.getValue()<lookupDays+offestDays) {		
+					String day = x.getDisplayName(TextStyle.FULL, Locale.getDefault());
+					day = day.substring(0, 1).toUpperCase()+day.substring(1) ;
+					ctx.setFill(Color.grayRgb(96));
+					d+=divWidth;
+					ctx.fillText(day, d,16);
+					ctx.setFill(Color.grayRgb(178));
+					ctx.fillRect(x.getValue()*divWidth, 0, 2, height);
+				}
 			}
-		});
-		ctx.setFill(Color.RED);
-		LocalDate date = LocalDate.now();
-		LocalDateTime time = LocalDateTime.now();
-		double y = ((time.getHour()+1)*2)+((time.getMinute()+0.0)/30);
-		y = (y-16)*divHeight;
-		ctx.fillRect(date.getDayOfWeek().getValue()*divWidth, y-2, divWidth, 2);
+			ctx.fillRect(0, divHeight, width, 2);
+			ctx.setFill(Color.grayRgb(119));
+			for(int h = 0;h<lookupHours*2;h++) {
+				String hr = h%2==0?(h/2+offestHours)+":00":((h-1)/2+offestHours)+":30";
+				if(h%2==0)
+					ctx.fillRect(divWidth, (h+2)*divHeight, width-divWidth, 1);
+				ctx.fillText(hr, 8,(h+2.5)*divHeight);
+			}
+			int week = lookup.get(WEEK_OF_YEAR);
+			//System.out.println("week"+week);
+			TimeElements.forEach(te ->{
+				if(te.isWeek(week)) {
+					drawCase(te);
+				}
+			});
+			ctx.setFill(Color.RED);
+			LocalDate date = LocalDate.now();
+			LocalDateTime time = LocalDateTime.now();
+			double y = ((time.getHour()+1)*2)+((time.getMinute()+0.0)/30);
+			y = (y-(offestHours*2))*divHeight;
+			ctx.fillRect(date.getDayOfWeek().getValue()*divWidth, y-2, divWidth, 2);
+		}
 	}
 	private void drawCase(TimetableElement el) {
 		int Wc = divWidth;
 		int Hd = divHeight;
 		int x = el.getDay()*Wc;
-		int y = (((el.getHour()+1)*2)+(el.getMinute()>30?1:0)-16)*Hd;
+		int y = (int) (((((el.getHour()+1)*2)+((el.getMinute()+0.0)/30))-(offestHours*2))*Hd);
 		x += 2;
 		Wc -= 2;
 		LocalTime time = el.getDur();
@@ -143,17 +190,7 @@ public class Timetable<T extends TimetableElement> extends Component implements 
 	@Override
 	public void init() {
 		loaded = true;
-		table = new Canvas();
-		ctx = table.getGraphicsContext2D();
-		table.setOnMouseClicked(x->{
-			forEachClickEvent(x);
-		});
-		height = width = 512;
-		width += 128;
-		table.setWidth(width);
-		table.setHeight(height);
-		autosize();
-		add(table);
+
 		update();
 		if(looping) {
 			threader = App.threadManger.add(this);
@@ -185,5 +222,37 @@ public class Timetable<T extends TimetableElement> extends Component implements 
 			threader.interrupt();
 			looping=false;
 		}
+	}
+	public void setLookup(int startHour, int nHours, int startDay, int nDays) {
+		setOffestHours(startHour);
+		setLookupHours(nHours);
+		setOffestDays(startDay);
+		setLookupDays(nDays);
+		bestFit();
+		update();
+	}
+	private void bestFit() {
+		//w = 612 h = 512 
+		// w/7 h/1
+		// 86<w<204 
+		width = 68*(lookupDays+1)+136;
+		width = width<86?86:width>640?640:width;
+		setWidth(width);
+		table.prefWidth(width);
+		table.setStyle("-fx-border-color:#f00;");
+		ctx = table.getGraphicsContext2D();
+		System.out.println(width);
+	}
+	/**
+	 * @return the offestDays
+	 */
+	public int getOffestDays() {
+		return offestDays;
+	}
+	/**
+	 * @param offestDays the offestDays to set
+	 */
+	public void setOffestDays(int offestDays) {
+		this.offestDays = offestDays;
 	}
 }

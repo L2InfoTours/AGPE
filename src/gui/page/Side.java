@@ -46,7 +46,7 @@ public class Side extends Panel<BorderPane>{
 		ttl.setFollow(true);
 		ttl.setSize(256,256);
 		add(ttl);
-		DatePicker calendar = new DatePicker();
+		DatePicker calendar = new DatePicker("datepicker");
 		calendar.position = Position.Bottom;
 		add(calendar);
 		

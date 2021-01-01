@@ -13,8 +13,11 @@ import java.util.stream.Stream;
 import JFX.mote.components.Text;
 import JFX.mote.layout.Panel;
 import JFX.mote.layout.Table;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -33,16 +36,24 @@ public class DatePicker extends Panel<VBox>{
 	private Text text;
 
 	public DatePicker() {
-		this(LocalDate.now());
+		this(null,null);
 	}
 	public DatePicker(LocalDate localDate) {
-		super(new VBox());
+		this(null,localDate);
+	}
+	public DatePicker(String string,LocalDate localDate) {
+		super(new VBox(),string);
 		text = new Text("");
+		localDate = localDate==null?LocalDate.now():localDate;
 		setValue(localDate);
+		updateValue();
 		t = new Table();
 	}
+	public DatePicker(String string) {
+		this(string,null);
+	}
 	private void configureCalendar() {
-		value.getMonth();
+		System.out.println(day+" "+month+" "+year);
 		label.setText(
 			Month.of(month)
 				.getDisplayName(TextStyle.FULL,Locale.getDefault())
@@ -88,7 +99,7 @@ public class DatePicker extends Panel<VBox>{
 						dl = new DateCell(day,month==12?1:month+1,month==12?year+1:year,true);
 					}else {
 							
-						dl = new DateCell(day,(firstday<1?(month==1?12:month-1):month),year,true);
+						dl = new DateCell(day,(firstday<1?(month==1?12:month-1):month),firstday<1&&month==1?year-1:year,true);
 					}
 					t.addColumn(y,dl );
 					if(value.getDayOfMonth()==day && value.getMonth().getValue() == month && value.getYear() == year) {
@@ -115,12 +126,15 @@ public class DatePicker extends Panel<VBox>{
 		pMb.setPadding(new Insets(2,8,2,2));
 		pMb.getChildren().add(imgP);
 		pMb.setOnMouseClicked(event->{
+			System.out.println(day+" "+month+" "+year);
+			System.out.println(value);
 			if(month<=1) {
 				month = 12;
 				year--;
 			}else {
 				--month;
-			};configureCalendar();});
+			};
+			configureCalendar();});
 		
 		label = new Label();
 		label.setTextFill(textColor);
@@ -171,6 +185,7 @@ public class DatePicker extends Panel<VBox>{
 		configureCalendar();
 	}
 	private DateCell lastDateCell = null;
+	private EventHandler<?> onchange;
 	public void setDateCell(DateCell dateCell) {
 		dateCell.setBackground(Color.rgb(0x22, 0xaa, 0xff));
 		dateCell.updateStyle();
@@ -184,10 +199,21 @@ public class DatePicker extends Panel<VBox>{
 	}
 	private void setValue(LocalDate localDate) {
 		value = (localDate);
-		day = localDate.getDayOfMonth();
-		month = localDate.getMonthValue();
-		year = localDate.getYear();
+		//updateValue();
 		text.setText(value.toString());
 	}
-
+	private void updateValue() {
+		day = value.getDayOfMonth();
+		month = value.getMonthValue();
+		year = value.getYear();
+	}
+	public LocalDate getValue() {
+		return value;
+	}
+	public void setOnChange(EventHandler<?> onchange) {
+		this.onchange = onchange;
+		if(loaded) {
+			t.setOnMouseClicked((EventHandler<? super MouseEvent>) onchange);
+		}
+	}
 }

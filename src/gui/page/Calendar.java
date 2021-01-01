@@ -1,8 +1,12 @@
 package gui.page;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.function.Consumer;
 
+import JFX.mote.Element;
 import JFX.mote.Position;
+import JFX.mote.controls.DatePicker;
 import JFX.mote.controls.Switch;
 import JFX.mote.controls.Timetable;
 import JFX.mote.layout.Flex;
@@ -50,4 +54,15 @@ public class Calendar extends Panel<BorderPane>{
 	public void start(){
 		table.start();
 	}
+	public void setLookup(int startHour,int nHours,int startDay,int nDays) {
+		flex.getContent().forEach(x->{
+			((Timetable<?>) x).setLookup(startHour,nHours,startDay,nDays);
+		});
+	}
+	public void setLookup(LocalDate localdate) {
+		flex.getContent().forEach(x->{
+			((Timetable<?>) x).setLookup(localdate);
+		});
+	}
+	
 }
