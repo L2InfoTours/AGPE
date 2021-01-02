@@ -25,7 +25,7 @@ public class MainApp extends Panel<BorderPane>{
 		add(side);
 		calendar.position = Position.Center;
 		add(calendar);
-		//calendar.setLookup(8,12,1,1);
+		calendar.setLookup(8,12,3,1);
 		DatePicker dp = (DatePicker) PanelManager.get("datepicker");
 		dp.setOnChange(event->{
 			calendar.setLookup(dp.getValue());

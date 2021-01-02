@@ -116,6 +116,7 @@ public class PassField extends Component{
 		this.onchange = onchange;
 	}
 	public String getText() {
-		return input.getText();
+		Content = visible?input.getText():pass.getText();
+		return Content;
 	}
 }

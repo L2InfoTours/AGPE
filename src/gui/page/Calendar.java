@@ -40,6 +40,9 @@ public class Calendar extends Panel<BorderPane>{
 		flex = new Flex();
 		viewmode.setOnchange(x->{
 			flex.setType(x.isValue()?Flex.Column:Flex.Row);
+			flex.getContent().forEach(y->{
+				((Flex) y).setType(x.isValue()?Flex.Row:Flex.Column);
+			});
 			return true;
 		});
 		updateDiaries();
