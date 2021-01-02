@@ -5,6 +5,7 @@ import JFX.mote.components.Text;
 import JFX.mote.components.Title;
 import JFX.mote.controls.Button;
 import JFX.mote.controls.PassField;
+import JFX.mote.controls.Submit;
 import JFX.mote.controls.TextField;
 import JFX.mote.layout.Panel;
 import javafx.event.ActionEvent;
@@ -17,7 +18,7 @@ public class Login extends Panel<VBox>{
 	private TextField username;
 	private PassField password;
 	private Text errormsg;
-	private Button submit;
+	private Submit submit;
 	public Login(String name){
 		this(name,null);
 	}
@@ -31,7 +32,7 @@ public class Login extends Panel<VBox>{
 		if(onclick==null) {
 			onclick = x->{this.next();};
 		}
-		submit = new Button("Name",onclick);
+		submit = new Submit("Name",onclick);
 		add(submit);
 		layout.setAlignment(Pos.CENTER);
 		setAlignment(Pos.CENTER);

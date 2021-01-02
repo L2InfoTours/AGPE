@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import JFX.mote.Element;
 import JFX.mote.Position;
+import JFX.mote.controls.Button;
 import JFX.mote.controls.DatePicker;
 import JFX.mote.controls.Switch;
 import JFX.mote.controls.Timetable;
@@ -46,12 +47,19 @@ public class Calendar extends Panel<BorderPane>{
 			return true;
 		});
 		updateDiaries();
-		viewmode.position = Position.Top;
 		flex.position = Position.Center;
 		flex.setFollow(true);
 		flex.setSize(640, 512);
+		
+		Flex tool = new Flex();
+		tool.setType(tool.Row);
+		tool.position = Position.Top;
+		tool.add(viewmode);
+		tool.add(new Button("Ajouter",x->{
+			
+		}));
+		add(tool);
 		add(flex);
-		add(viewmode);
 		setSize(720, 640);
 	}
 	public void start(){
