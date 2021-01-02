@@ -12,11 +12,17 @@ import java.util.List;
 import java.util.Locale;
 
 import JFX.mote.App;
+import JFX.mote.Component;
 import JFX.mote.Element;
 import JFX.mote.layout.Flex;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 /**
@@ -27,6 +33,10 @@ import javafx.scene.paint.Color;
 public class Timetable<T extends TimetableElement> extends Flex implements Runnable {
 	private TemporalField WEEK_OF_YEAR = WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear();
 	List<T> TimeElements;
+	public void setType(int type) {
+		this.type = type;
+		update();
+	}
 	LocalDate lookup;
 	private int lookupDays = 7;
 	private int lookupHours = 12;
@@ -98,15 +108,64 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 		table.setHeight(height);
 		update();
 	}
+
 	/**
 	 * upadte the timetable canvas
 	 */
-	public void update() {
-		if(ctx != null) {	
+	protected void update() {
+		if(loaded) {
+			if(type == Flex.Row) {
+				updateRow();
+			}else {
+				updateColumn();
+			}
+		}
+	}
+
+	/**
+	 * upadte the timetable canvas in Row mode
+	 */
+	private void updateRow() {
+		if(ctx != null) {
+			table.setWidth(height);
+			table.setHeight(width);
+			ctx.clearRect(0, 0, height, width);
+			ctx.setFill(Color.WHITESMOKE);
+			ctx.fillRect(0, 0, height, width);
+			divWidth = (int) (width/(lookupDays+1.1));
+			divHeight = height/(lookupHours*2+1);
+			int d = 16;
+			for(DayOfWeek x : DayOfWeek.values()){
+				if(x.getValue()>offestDays-1 && x.getValue()<lookupDays+offestDays) {		
+					String day = x.getDisplayName(TextStyle.FULL, Locale.getDefault());
+					day = day.substring(0, 1).toUpperCase()+day.substring(1) ;
+					ctx.setFill(Color.grayRgb(96));
+					d+=divWidth;
+					ctx.fillText(day, 16,d);
+					ctx.setFill(Color.grayRgb(178));
+					ctx.fillRect(0,x.getValue()*divWidth, height,2);
+				}
+			}
+			ctx.fillRect(0, divHeight, width, 2);
+			ctx.setFill(Color.grayRgb(119));
+			for(int h = 0;h<lookupHours*2;h++) {
+				String hr = h%2==0?(h/2+offestHours)+":00":((h-1)/2+offestHours)+":30";
+				if(h%2==0)
+					ctx.fillRect(divWidth, (h+2)*divHeight, width-divWidth, 1);
+				ctx.fillText(hr, 8,(h+2.5)*divHeight);
+			}
+		}
+	}
+	/**
+	 * upadte the timetable canvas in  Column Mode
+	 */
+	private void updateColumn() {
+		if(ctx != null) {
+			table.setWidth(width);
+			table.setHeight(height);
 			ctx.clearRect(0, 0, width, height);
 			ctx.setFill(Color.WHITESMOKE);
 			ctx.fillRect(0, 0, width, height);
-			System.out.println(width);
 			divWidth = (int) (width/(lookupDays+1.1));
 			divHeight = height/(lookupHours*2+1);
 			int d = 16;
@@ -132,7 +191,9 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 			int week = lookup.get(WEEK_OF_YEAR);
 			//System.out.println("week"+week);
 			TimeElements.forEach(te ->{
-				if(te.isWeek(week)) {
+				if(
+						te.isWeek(week) 
+						) {
 					drawCase(te);
 				}
 			});
@@ -145,22 +206,32 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 		}
 	}
 	private void drawCase(TimetableElement el) {
-		int Wc = divWidth;
-		int Hd = divHeight;
-		int x = el.getDay()*Wc;
-		int y = (int) (((((el.getHour()+1)*2)+((el.getMinute()+0.0)/30))-(offestHours*2))*Hd);
-		x += 2;
-		Wc -= 2;
-		LocalTime time = el.getDur();
-		Hd *=  ((time.getHour())*2)+((time.getMinute()+0.0)/30);
-		int padding = 5; 
-		int font = (int) ctx.getFont().getSize();
-		ctx.setFill(Color.WHITE);
-		ctx.fillRect(x, y, Wc, Hd);
-		el.setBound(x, y, Wc, Hd);
-		ctx.setFill(Color.rgb(34,176, 255));
-		ctx.fillRect(x, y, 2, Hd);
-		ctx.fillText(el.getName(), x+padding, y+padding+font);
+		if(
+				el.getDay()>offestDays-1 && el.getDay()<lookupDays+offestDays
+				&&
+				el.getHour()<lookupHours+offestHours && 
+					((el.getHour()+el.getDur().getHour())*60)
+					+
+					el.getMinute()+el.getDur().getMinute() 
+					>lookupHours
+				) {	
+			int Wc = divWidth;
+			int Hd = divHeight;
+			int x = (el.getDay()-offestDays+1)*Wc;
+			int y = (int) (((((el.getHour()+1)*2)+((el.getMinute()+0.0)/30))-(offestHours*2))*Hd);
+			x += 2;
+			Wc -= 2;
+			LocalTime time = el.getDur();
+			Hd *=  ((time.getHour())*2)+((time.getMinute()+0.0)/30);
+			int padding = 5; 
+			int font = (int) ctx.getFont().getSize();
+			ctx.setFill(Color.WHITE);
+			ctx.fillRect(x, y, Wc, Hd);
+			el.setBound(x, y, Wc, Hd);
+			ctx.setFill(Color.rgb(34,176, 255));
+			ctx.fillRect(x, y, 2, Hd);
+			ctx.fillText(el.getName(), x+padding, y+padding+font);
+		}
 	}
 	private void forEachClickEvent(MouseEvent x) {
 		TimetableElement c = TimeElements.stream().reduce(null,(p,o)->{
@@ -184,7 +255,7 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 	@Override
 	protected void updateStyle() {
 		super.updateStyle();
-		table.autosize();
+		//table.autosize();
 		autosize();
 	}
 	@Override
@@ -238,8 +309,9 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 		width = 68*(lookupDays+1)+136;
 		width = width<86?86:width>640?640:width;
 		setWidth(width);
+		table.setWidth(width);
 		table.prefWidth(width);
-		table.setStyle("-fx-border-color:#f00;");
+		setStyle("-fx-border-color:#f00;");
 		ctx = table.getGraphicsContext2D();
 		System.out.println(width);
 	}

@@ -45,7 +45,7 @@ public class Flex extends JFX.mote.Component{
 	}
 	public static final int Row = 1;
 	public static final int Column = 0;
-	private int type;
+	protected int type;
 	private boolean follow = false;
 	public boolean isFollow() {
 		return follow;
