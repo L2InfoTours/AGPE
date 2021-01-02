@@ -1,15 +1,18 @@
-package app;
-
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import JFX.mote.Frame;
 import JFX.mote.layout.Popup;
+import app.lectureBD;
 import gui.page.Login;
 import gui.page.MainApp;
 import gui.page.TimeExamElement;
+import javafx.application.Application;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import liaisonappliBDopta.Authentification;
 
 public class Launcher {
