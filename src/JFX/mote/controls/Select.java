@@ -83,7 +83,6 @@ public class Select extends Component{
 		textfield.setPadding(new Insets(2));
 		input.setOnKeyPressed(event->{
 			value = input.getText()+event.getText();
-			System.out.println(value);
 			updateSelect();
 		});
 		
@@ -115,7 +114,6 @@ public class Select extends Component{
 					})
 					.map(x->{
 						return new ListLine(x,e->{
-							System.out.println(e);
 							Object o = e.getSource();
 							if(o instanceof ListLine) {
 								ListLine ll = (ListLine) o;

@@ -1,6 +1,7 @@
 package JFX.mote.layout;
 
 import JFX.mote.Component;
+import JFX.mote.controls.TreeItem;
 import javafx.event.EventHandler;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
