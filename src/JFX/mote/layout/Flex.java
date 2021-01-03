@@ -6,6 +6,7 @@ import java.util.List;
 import JFX.mote.App;
 import JFX.mote.Component;
 import JFX.mote.Element;
+import JFX.mote.controls.TreeItem;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.control.ScrollPane;
@@ -17,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-public class Flex extends JFX.mote.Component{
+public class Flex extends Component {
 	private ScrollPane scroll;
 	public int getType() {
 		return type;
@@ -48,7 +49,7 @@ public class Flex extends JFX.mote.Component{
 	public static final int Column = 0;
 	protected int type;
 	private boolean follow = false;
-	private int minfontsize;
+	private int minfontsize = 0;
 	public boolean isFollow() {
 		return follow;
 	}
@@ -59,7 +60,7 @@ public class Flex extends JFX.mote.Component{
 		scroll = new ScrollPane();
 		BackgroundFill bg = new BackgroundFill(Color.TRANSPARENT, null, null);
 		scroll.setBackground(new Background(bg));
-		add(scroll);
+		getChildren().add(scroll);
 		this.setType(type);
 	}
 	public Flex() {
@@ -76,7 +77,7 @@ public class Flex extends JFX.mote.Component{
 				fontSize/=nrow+3;				
 			}else {
 				fontSize = height==0?App.height:height;
-				int nrow = content.size();
+				int nrow = content.size()+1;
 				fontSize/=nrow*2;	
 			}
 			fontSize = fontSize<minfontsize?minfontsize:fontSize;
@@ -94,12 +95,15 @@ public class Flex extends JFX.mote.Component{
 	}
 	public void add(String string) {
 		content.add(new ListLine(string));
+		update();
 	}
 	public void add(Component componnent) {
 		content.add(componnent);
+		update();
 	}
 	public void add(String string,EventHandler<? super MouseEvent> onclick) {
 		content.add(new ListLine(string,onclick));
+		update();
 	}
 	@Override
 	public void init() {
