@@ -27,4 +27,7 @@ public class ListLine extends Component{
 		text.setFill(textColor);
 		text.setFont(new Font(fontSize));
 	}
+	public String getText() {
+		return value;
+	}
 }

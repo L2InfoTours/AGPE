@@ -42,11 +42,13 @@ public class Flex extends JFX.mote.Component{
 	}
 	public void setContent(List<Element> content) {
 		this.content = content;
+		update();
 	}
 	public static final int Row = 1;
 	public static final int Column = 0;
 	protected int type;
 	private boolean follow = false;
+	private int minfontsize;
 	public boolean isFollow() {
 		return follow;
 	}
@@ -63,6 +65,9 @@ public class Flex extends JFX.mote.Component{
 	public Flex() {
 		this(0);
 	}
+	public void setMinFontSize(int fontSize) {
+		minfontsize = fontSize;
+	}
 	protected void update() {
 		if(loaded) {
 			if(type == Flex.Row) {
@@ -74,6 +79,7 @@ public class Flex extends JFX.mote.Component{
 				int nrow = content.size();
 				fontSize/=nrow*2;	
 			}
+			fontSize = fontSize<minfontsize?minfontsize:fontSize;
 			table.getChildren().clear();
 			BackgroundFill bg = new BackgroundFill(backgroundColor, null, null);
 			table.setBackground(new Background(bg));
@@ -82,6 +88,8 @@ public class Flex extends JFX.mote.Component{
 				((Component) line).setAlignment(Pos.CENTER);
 				table.getChildren().add(((Component) line).toNode());
 			});
+		//	autosize();
+			//table.autosize();
 		}
 	}
 	public void add(String string) {
@@ -106,6 +114,7 @@ public class Flex extends JFX.mote.Component{
 	public void setSize(double width, double height) {
 		super.setSize(width, height);
 		setPrefSize(width, height);
+		scroll.setPrefSize(width, height);
 		if(follow) {
 			scroll.setFitToWidth(true);
 			scroll.setFitToHeight(true);
