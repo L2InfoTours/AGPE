@@ -80,4 +80,11 @@ public class TreeItem {
 	public TreeItem getClickChild(MouseEvent x) {
 		return c==null?this:c;
 	}
+	public int lenght() {
+		int a = 1;
+		for(TreeItem i : content) {
+			a+=i.lenght();
+		}
+		return a;
+	}
 }

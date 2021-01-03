@@ -26,8 +26,7 @@ public class Tree extends Component{
 		width = (int) (width==0?App.width*.5:width);
 		height = (int) (height==0?App.height*.5:height);
 		list = new ArrayList<TreeItem>();
-		setPrefSize(width,height);
-		setMinSize(256,256);
+		fontSize = 16;
 		canvas.setWidth(width);
 		canvas.setHeight(height);
 		add(canvas);
@@ -42,15 +41,14 @@ public class Tree extends Component{
 	}
 	private void update() {
 		if(loaded) {
-			
+			height = (int) (fontSize*size());
 			canvas.setWidth(width);
 			canvas.setHeight(height);
-			//ctx.clearRect(0, 0, width, height);
+			setMinSize(width,fontSize);
+			setPrefSize(width,height);
+			ctx.clearRect(0, 0, width, height);
 			ctx.setFill(Color.grayRgb(0xee));
 			ctx.fillRect(0, 0, width, height);
-			fontSize = height==0?App.height:height;
-			int nrow = list.size()+1;
-			fontSize/=nrow*2;
 			int y = 0;
 			int x = (int) fontSize;
 			ctx.setFont(new Font(fontSize));
@@ -62,6 +60,13 @@ public class Tree extends Component{
 				ryl = 0;
 			}
 		}
+	}
+	private double size() {
+		int a = 0;
+		for(TreeItem i : list) {
+			a+=i.lenght();
+		}
+		return a;
 	}
 	private void drawLine(String i,int x,int y,boolean select) {
 		int w = (int) (width<fontSize?i.length()*fontSize:width);
