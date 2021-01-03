@@ -75,6 +75,6 @@ public abstract class Component extends StackPane implements Element{
 	}
 	@Override
 	public String toString() {
-		return super.toString()+"{"+width+","+height+","+backgroundColor+"}";
+		return super.toString()+"{"+width+","+height+","+backgroundColor+","+textColor+"}";
 	}
 }
