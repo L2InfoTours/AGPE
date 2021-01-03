@@ -1,48 +1,25 @@
 package gui.page;
 
-import JFX.mote.Component;
 import JFX.mote.components.Text;
 import JFX.mote.components.Title;
-import JFX.mote.controls.Button;
 import JFX.mote.controls.PassField;
 import JFX.mote.controls.Submit;
 import JFX.mote.controls.TextField;
-import JFX.mote.layout.Panel;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.geometry.Pos;
-import javafx.scene.layout.VBox;
+import JFX.mote.layout.Form;
 import javafx.scene.paint.Color;
 
-public class Login extends Panel<VBox>{
+public class Login extends Form{
 	private TextField username;
 	private PassField password;
 	private Text errormsg;
-	private Submit submit;
 	public Login(String name){
-		this(name,null);
-	}
-	public Login(String name,EventHandler<ActionEvent> onclick){
-		super(new VBox(),name);
+		super(name,null);
 		add(new Title("Connection"));
 		username = new TextField("Name2");
 		add(username);
 		password = new PassField("Name2");
 		add(password);
-		if(onclick==null) {
-			onclick = x->{this.next();};
-		}
-		submit = new Submit("Name",onclick);
-		add(submit);
-		layout.setAlignment(Pos.CENTER);
-		setAlignment(Pos.CENTER);
-	}
-
-	@Override
-	protected void updateStyle() {	
-	}
-	public void  setSubmitAction(EventHandler<ActionEvent> onclick) {
-		submit.setOnclick(onclick);
+		open();
 	}
 	public String getUsername(){
 		return username.getText();
