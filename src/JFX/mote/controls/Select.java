@@ -151,4 +151,7 @@ public class Select extends Component{
 		list = list==null?new ArrayList<String>():list;
 		this.list = list;
 	}
+	public String getValue() {
+		return value;
+	}
 }

@@ -21,6 +21,7 @@ public class Inscription extends Form{
 	private PassField password1;
 	private TextField mail;
 	private Text errormsg;
+	private Select acc;
 	public Inscription(String name, EventHandler<ActionEvent> onclick) {
 		super(name,null);
 		add(new Title("Inscription"));
@@ -28,7 +29,8 @@ public class Inscription extends Form{
 		add(username);
 		mail = new Email("Email");
 		add(mail);
-		add(new Select(Arrays.asList("Secretaritat","Scolarité","Admin")));
+		acc = new Select(Arrays.asList("Secretaritat","Scolarité","Admin"));
+		add(acc);
 		/*
 		password = new PassField("Mot de Passe");
 		add(password);
@@ -50,6 +52,9 @@ public class Inscription extends Form{
 		return null;
 	}
 	*/
+	public String getAccType() {
+		return acc.getValue();
+	}
 	public void setErrorMessage(String value) {
 		if(errormsg==null) {
 			errormsg = new Text(value);
