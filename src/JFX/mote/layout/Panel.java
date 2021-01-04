@@ -118,7 +118,7 @@ public abstract class Panel<T extends Pane> extends Component implements Element
 			PanelManager.get(page).init();
 			this.getChildren().addAll(PanelManager.get(page).getChildren());		
 		}catch(Exception e){
-			App.setPanel(PanelManager.get(page));			
+			App.setPanel(PanelManager.get(page));
 		}
 	}
 	/**
