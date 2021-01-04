@@ -80,7 +80,6 @@ public class Tree extends Component{
 	private void drawLine(TreeItem ti,int x,int y) {
 		x = (int) (ti.size()==0?x:x+fontSize);
 		int w = (int) (width<fontSize?ti.getText().length()*fontSize:width);
-		System.out.println(value);
 		drawLine(ti.getText(), x, y,containsValue(ti));
 		ctx.beginPath();
 		if(ti.size()!=0) {
@@ -161,6 +160,15 @@ public class Tree extends Component{
 		TreeItem a = new TreeItem(string);
 		add(a);
 		return a;
+	}
+	public void clear() {
+		if(ctx != null) {
+			ctx.clearRect(0, 0, width, height);
+			ctx.setFill(Color.grayRgb(0xee));
+			ctx.fillRect(0, 0, width, height);
+		}
+		list.clear();
+		
 	}
 	
 }
