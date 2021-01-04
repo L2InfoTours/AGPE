@@ -2,6 +2,7 @@ package gui.page;
 
 import JFX.mote.components.Text;
 import JFX.mote.components.Title;
+import JFX.mote.controls.Email;
 import JFX.mote.controls.PassField;
 import JFX.mote.controls.TextField;
 import JFX.mote.layout.Form;
@@ -21,7 +22,7 @@ public class Inscription extends Form{
 		add(new Title("Inscription"));
 		username = new TextField("Username");
 		add(username);
-		mail = new TextField("Email");
+		mail = new Email("Email");
 		add(mail);
 		password = new PassField("Mot de Passe");
 		add(password);

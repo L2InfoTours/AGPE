@@ -16,6 +16,7 @@ public class TextField extends Component{
 	private EventHandler<? super KeyEvent> onchange = event->{};
 	private String value;
 	private String type;
+	protected VBox pane;
 	public TextField(String value,EventHandler<? super KeyEvent> onchange) {
 		this(value);
 		this.setOnchange(onchange);
@@ -26,7 +27,7 @@ public class TextField extends Component{
 	}
 	@Override
 	public void init() {
-		VBox pane = new VBox();
+		pane = new VBox();
 		text = new Label(value);
 		text.setPadding(new Insets(32));
 		text.setAlignment(Pos.CENTER_LEFT);
