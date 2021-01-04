@@ -23,7 +23,17 @@ public class TimeExamElement extends TimetableElement {
 		this.topic = topic;
 	}
 	public void createPanel(){
-		(new CreationPanel()).open();
+		Popup pop = new Popup("Ajouter un Examen");
+		CreationPanel cp = new CreationPanel();
+		// Some Code
+		cp.setSubmitAction(event->{
+			
+			// Some Code			
+			pop.close();
+		});
+		cp.open();
+		pop.add(cp);
+		pop.open();
 	}
 
 }
