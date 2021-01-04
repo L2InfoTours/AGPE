@@ -40,6 +40,7 @@ public class Inscription extends Form{
 	public String getUsername(){
 		return username.getText();
 	}
+	/*
 	public String getVerifiedPassWord (){
 		if(password.getText().contentEquals(password1.getText())) {
 			return password.getText();
@@ -48,6 +49,7 @@ public class Inscription extends Form{
 		}
 		return null;
 	}
+	*/
 	public void setErrorMessage(String value) {
 		if(errormsg==null) {
 			errormsg = new Text(value);
