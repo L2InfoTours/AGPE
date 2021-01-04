@@ -29,7 +29,7 @@ public class Inscription extends Form{
 		add(username);
 		mail = new Email("Email");
 		add(mail);
-		acc = new Select(Arrays.asList("Secretaritat","Scolarité","Admin"));
+		acc = new Select(Arrays.asList("Secretariat","Scolarité","Admin"));
 		add(acc);
 		/*
 		password = new PassField("Mot de Passe");
