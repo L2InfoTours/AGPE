@@ -8,7 +8,7 @@ public class Salle {
 	public static int num = 0;
 	private int id = 0 ;
 	
-	Salle(String nom, String materiel,int capacite){
+	public Salle(String nom, String materiel,int capacite){
 		this.materiel = materiel;
 		this.nom = nom;
 		this.id = num;
@@ -18,6 +18,11 @@ public class Salle {
 
 	public int getId() {
 		return id;
+	}
+	public void addBD() {
+		String requete = "INSERT INTO salles(SallesNom, SallesCapacite) VALUES ('"+nom+"',"+capacite+")";
+		Connexion a = new Connexion();
+		a.RequeteDB(requete);
 	}
 
 

@@ -33,6 +33,9 @@ public class Flex extends Component {
 		}else {
 			table = new VBox();		
 		}
+		if(loaded && scroll!=null) {
+			scroll.setContent(table);
+		}
 		update();
 	}
 	Pane table;
@@ -131,6 +134,14 @@ public class Flex extends Component {
 		setPrefSize(width, height);
 		this.width = (int) width;
 		this.height = (int) height;
+		if(scroll != null) {
+			scroll.setPrefSize(width, height);
+			if(follow) {
+				scroll.setFitToWidth(true);
+				scroll.setFitToHeight(true);
+
+			}
+		}
 	}
 	@Override
 	public void heredite(Component component) {

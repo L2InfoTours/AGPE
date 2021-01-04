@@ -23,7 +23,7 @@ public class Etudiant {
 
 	
 	
-	Etudiant(int numero , String nom, String prenom, String filliere ,int annee) throws NamingException, SQLException {
+	public Etudiant(int numero , String nom, String prenom, String filliere ,int annee) throws NamingException, SQLException {
 		this.nom = nom;
 		this.numeroetu = numero;
 		this.prenom = prenom;
@@ -32,12 +32,14 @@ public class Etudiant {
 		this.id = num;
 		num ++;
 		
+		
+		
+	}
+	public void addBD() {
 		Connexion a = new Connexion();
 		String sqlQuery = "INSERT INTO eleves(EleveNom, ElevePrenom, EleveNum, Promo, Annee) VALUES ('"+nom+"','"+prenom+"',"+numeroetu+",'"+promo+"',"+annee+")";
 		a.RequeteDB(sqlQuery);
-		
 	}
-
 
 	public int getId() {
 		return id;

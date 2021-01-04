@@ -19,7 +19,7 @@ public class TimeExamElement extends TimetableElement {
 	private String room;
 	private String topic;
 	
-	public TimeExamElement(String room,String topic, LocalDateTime date, LocalTime duration, List<Object> members) {
+	public TimeExamElement(String room,String topic, LocalDateTime date, LocalTime duration, List<String> list) {
 		super(room+"\n"+topic, date,duration);
 		this.room = room;
 		this.topic = topic;
