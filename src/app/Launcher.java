@@ -18,6 +18,7 @@ import gui.page.TimeExamElement;
 import gui.page.Validation;
 import liaisonappliBDopta.Authentification;
 import liaisonappliBDopta.Verif;
+import sendMails.ClassMail;
 
 public class Launcher {
 
@@ -30,6 +31,7 @@ public class Launcher {
 		inscription.setSubmitAction(event->{
 			String user = inscription.getUsername();
 			String email = inscription.getEmail();
+			String accType = inscription.getAccType();
 			//Some Code
 			Verif a = new Verif();
             if(a.Verification(user, email)==false) {

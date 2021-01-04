@@ -1,5 +1,6 @@
 package gui.page;
 
+
 import JFX.mote.App;
 import JFX.mote.Position;
 import JFX.mote.components.Text;
@@ -14,6 +15,7 @@ import JFX.mote.layout.Popup;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import liaisonappliBDopta.SQLData;
 
 public class Side extends Panel<BorderPane>{
 	public Side() {
@@ -34,7 +36,9 @@ public class Side extends Panel<BorderPane>{
 		add(t);	
 		Tree ttl = new Tree();
 		TreeItem salle = ttl.createSection("Salle");
-		salle.add("F0");
+		SQLData.getSalle().forEach(x->{
+			salle.add(x);
+		});
 		TreeItem promo = ttl.createSection("promo");
 		promo.add("L2");
 		ttl.position = Position.Center;
