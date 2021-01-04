@@ -8,6 +8,10 @@ public class Spinner extends Component{
 		// TODO Auto-generated constructor stub
 	}
 
+	public Spinner() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public void init() {
 		add(new javafx.scene.control.Spinner<Integer>());

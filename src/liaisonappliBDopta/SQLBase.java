@@ -57,8 +57,59 @@ public class SQLBase {
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String fil = rs.getString("Promo");
-					String y = rs.getString("Annee");
-					ls.add(y+fil);
+					int y = rs.getInt("Annee");
+					String L = y<3?"L"+y:"M"+(y-3);
+					ls.add(L+" "+fil);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		ls = ls.stream().distinct().collect(Collectors.toList());
+		return ls;
+	}
+	public static List<String> getTopics() {
+		List<String> ls = new ArrayList<String>();
+		ResultSet rs = execute("SELECT Nom FROM Matiere");
+		if(rs != null) {			try {
+				while (rs.next()) {
+					String nom= rs.getString("Nom");
+					ls.add(nom);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		ls = ls.stream().distinct().collect(Collectors.toList());
+		return ls;
+	}
+	public static List<String> getMateriel() {
+		List<String> ls = new ArrayList<String>();
+		ResultSet rs = execute("SELECT Nom FROM Materiel");
+		if(rs != null) {			try {
+				while (rs.next()) {
+					String nom= rs.getString("Nom");
+					ls.add(nom);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		ls = ls.stream().distinct().collect(Collectors.toList());
+		return ls;
+	}
+	public static List<String> getElevesIn(String x) {
+		List<String> ls = new ArrayList<String>();
+		String a = x.split(" ")[0].substring(1);
+		String b = x.substring(2+a.length());
+		System.out.println("SELECT EleveNom,ElevePrenom FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
+		ResultSet rs = execute("SELECT EleveNom,ElevePrenom,EleveNum FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
+		if(rs != null) {			try {
+				while (rs.next()) {
+					String nom= rs.getString("EleveNom");
+					String prenom= rs.getString("ElevePrenom");
+					String num= rs.getString("EleveNum");
+					ls.add(nom+"\t"+prenom+"\t"+num);
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
