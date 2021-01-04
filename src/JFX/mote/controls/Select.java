@@ -5,6 +5,7 @@ import JFX.mote.Element;
 import JFX.mote.layout.Flex;
 import JFX.mote.layout.ListLine;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
@@ -38,11 +39,14 @@ public class Select extends Component{
 	public Select(String value,List<String> ls) {
 		super();
 		this.value = value;
-		list = ls;
+		setList(ls);
 		flex = new Flex();
 	}
 	public Select(List<String> ls) {
 		this("",ls);
+	}
+	public Select() {
+		this(null);
 	}
 	@Override
 	public void init() {
@@ -142,5 +146,9 @@ public class Select extends Component{
 	}
 	public String getText() {
 		return input.getText();
+	}
+	public void setList(List<String> list) {
+		list = list==null?new ArrayList<String>():list;
+		this.list = list;
 	}
 }
