@@ -48,7 +48,7 @@ public class Launcher {
                 }
             }else {
                 System.out.println("Compte déjà existant.");
-                ins.setErrorMessage("Un compte avec des informations similaires existe déjà.");
+                inscription.setErrorMessage("Un compte avec des informations similaires existe déjà.");
             }
 		});
 		
