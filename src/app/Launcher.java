@@ -6,7 +6,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import JFX.mote.Frame;
+import JFX.mote.layout.Form;
 import JFX.mote.layout.Popup;
+import gui.page.Inscription;
 import gui.page.Login;
 import gui.page.MainApp;
 import gui.page.TimeExamElement;
@@ -17,6 +19,27 @@ public class Launcher {
 	public static void main(String[] args) {
 		System.out.println("app");
 		Frame frame = new Frame("Projet 1");
+		
+		// 
+		
+		Inscription ins = new Inscription("", null);
+		ins.setSubmitAction(event->{
+			//Some Code
+			String user = ins.getUsername();
+			String email = ins.getEmail();
+			String pass = ins.getVerifiedPassWord();
+			
+		});
+		
+		
+		Validation val = new Validation("val", null);
+		val.setSubmitAction(event->{
+			//Some Code
+			String code = val.getCode();
+		});
+		
+		ins.setNext("val");
+		// APP
 		Login login = new Login("login");
 		login.setErrorMessage("invalid");
 		login.setSubmitAction(event->{
@@ -43,7 +66,12 @@ public class Launcher {
 		System.out.println(diaries);
 		maz.getCalendar().setDiaries(diaries);
 		login.setNext("app");
-		frame.setPanel(login);
+		
+		
+		
+		
+		
+		frame.setPanel(ins);
 		frame.show();
 	}
 	

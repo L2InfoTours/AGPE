@@ -19,13 +19,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class lectureBD {
-	
-	 String url="jdbc:mysql://localhost/proj_exam";
+	 String url="jdbc:mysql://localhost/proj_exam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String login="root"; 
 		String password="";
 		Connection cn=null;
 		Connection cn2=null;
-		
 		private List<TimeExamElement> diary = new ArrayList<TimeExamElement>();
 		
 	public lectureBD() {
@@ -63,8 +61,7 @@ public class lectureBD {
 			cn2= DriverManager.getConnection(url, login, password);
 			ste = cn2.createStatement();
 			resultats = ste.executeQuery(requete2);
-			if (resultats.next()) {
-				
+			if (resultats.next()) {			
 			diary.add(new TimeExamElement(resultats.getString("s.sallesNom"),resultats.getString("e.ExamenTitre"),LocalDateTime.of(resultats.getInt("YEAR(c.CreneauxDT)"),resultats.getInt("MONTH(c.CreneauxDT)"),resultats.getInt("DAY(c.CreneauxDT)"), resultats.getInt("HOUR(c.CreneauxDT)"), resultats.getInt("MINUTE(c.CreneauxDT)")),LocalTime.of(1, 30),null));
 			System.out.println(resultats.getString("e.ExamenTitre"));
 			}

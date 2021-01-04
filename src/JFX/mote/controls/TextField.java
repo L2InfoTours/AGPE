@@ -15,6 +15,7 @@ public class TextField extends Component{
 	private javafx.scene.control.TextField input;
 	private EventHandler<? super KeyEvent> onchange = event->{};
 	private String value;
+	private String type;
 	public TextField(String value,EventHandler<? super KeyEvent> onchange) {
 		this(value);
 		this.setOnchange(onchange);
@@ -64,5 +65,9 @@ public class TextField extends Component{
 	}
 	public String getText() {
 		return input.getText();
+	}
+	public final static String Email = "email"; 
+	public void setType(String string) {
+		this.type = string;
 	}
 }
