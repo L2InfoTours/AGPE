@@ -57,7 +57,7 @@ public class Popup {
 		add(new Title(name));
 		content.init();
 		content.setMinSize(App.width*.8, App.height*.8);
-		content.setMaxSize(App.width*.8, App.height*.8);
+		//content.setMaxSize(App.width*.8, App.height*.8);
 		//content.setAlignment(Pos.TOP_CENTER);
 		
 		
@@ -67,6 +67,7 @@ public class Popup {
 		layout.setClip(rect);
 		Scene sc= new Scene(layout, App.width*.8, App.height*.8);
 		sc.setFill(Color.TRANSPARENT);
+		pop.setResizable(true);
 		
 		pop.initStyle(StageStyle.TRANSPARENT);
 	
@@ -79,7 +80,7 @@ public class Popup {
 	 */
 	public void add(Component c) {
 		content.add(c);
-		c.setStyle("-fx-border-color:#f00;");
+		//c.setStyle("-fx-border-color:#f00;");
 	}
 	/**
 	 * Open PopUp
