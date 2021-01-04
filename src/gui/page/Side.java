@@ -15,7 +15,7 @@ import JFX.mote.layout.Popup;
 import javafx.geometry.Insets;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import liaisonappliBDopta.SQLData;
+import liaisonappliBDopta.SQLBase;
 
 public class Side extends Panel<BorderPane>{
 	public Side() {
@@ -36,11 +36,13 @@ public class Side extends Panel<BorderPane>{
 		add(t);	
 		Tree ttl = new Tree();
 		TreeItem salle = ttl.createSection("Salle");
-		SQLData.getSalle().forEach(x->{
+		SQLBase.getSalle().forEach(x->{
 			salle.add(x);
 		});
 		TreeItem promo = ttl.createSection("promo");
-		promo.add("L2");
+		SQLBase.getPromo().forEach(x->{
+			promo.add(x);
+		});
 		ttl.position = Position.Center;
 		ttl.setFontSize(16);
 		ttl.setSize(256,256);

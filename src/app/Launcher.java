@@ -17,13 +17,14 @@ import gui.page.MenuApp;
 import gui.page.TimeExamElement;
 import gui.page.Validation;
 import liaisonappliBDopta.Authentification;
+import liaisonappliBDopta.SQLBase;
 import liaisonappliBDopta.Verif;
 import sendMails.ClassMail;
 
 public class Launcher {
 
 	public static void main(String[] args) throws NumberFormatException, NamingException{
-
+		SQLBase.connection();
 		Frame frame = new Frame("Projet 1");
 		
 		//Inscription 
