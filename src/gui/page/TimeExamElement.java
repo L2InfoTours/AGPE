@@ -18,11 +18,13 @@ public class TimeExamElement extends TimetableElement {
 
 	private String room;
 	private String topic;
+	private List<String> list;
 	
 	public TimeExamElement(String room,String topic, LocalDateTime date, LocalTime duration, List<String> list) {
 		super(room+"\n"+topic, date,duration);
 		this.room = room;
 		this.topic = topic;
+		this.list = list;
 	}
 	public void createPanel(){
 		Popup pop = new Popup("Ajouter un Examen");
@@ -41,7 +43,16 @@ public class TimeExamElement extends TimetableElement {
 	public void open() {
 		Popup a = new Popup(getName());
 		a.add(new Text(getDate().format(DateTimeFormatter.ofPattern("hh:mm dd/MM/YY"))));
+		
 		a.add(new Text(getDur().format(DateTimeFormatter.ofPattern("hh:mm"))));
+		
+		a.add(new Text("topic : "+topic));
+		
+		a.add(new Text("room : "+room));
+		System.out.println(list);
+		Tree b = new Tree(list);
+		a.add(b);
+		
 		a.open();
 	}
 }

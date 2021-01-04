@@ -17,6 +17,7 @@ import gui.page.MenuApp;
 import gui.page.TimeExamElement;
 import gui.page.Validation;
 import liaisonappliBDopta.Authentification;
+import liaisonappliBDopta.Verif;
 
 public class Launcher {
 
@@ -30,6 +31,25 @@ public class Launcher {
 			String user = inscription.getUsername();
 			String email = inscription.getEmail();
 			//Some Code
+			Verif a = new Verif();
+            if(a.Verification(user, email)==false) {
+                String pass="";
+                final String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+                int j = (int)(Math.random() * 13);
+                for(int i=0;i<j;i++) {
+                    int randomInt = (int)(Math.random() * chars.length() + 1);
+                    pass = pass + chars.charAt(randomInt);
+                }
+                try {
+                    ClassMail.sendMail(email,"Création de votre compte","Bonjour,\nVotre compte du groupe "+accType+" a été crée.\nVotre mot de passe est:\n"+pass);
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }else {
+                System.out.println("Compte déjà existant.");
+                ins.setErrorMessage("Un compte avec des informations similaires existe déjà.");
+            }
 		});
 		
 		//Validation

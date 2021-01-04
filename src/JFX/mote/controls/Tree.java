@@ -17,7 +17,7 @@ public class Tree extends Component{
 	
 	private Canvas canvas;
 	private GraphicsContext ctx;
-	private List<TreeItem> list;
+	private List<TreeItem> list = new ArrayList<TreeItem>();;
 	private int ryl;
 	private List<TreeItem> value = new ArrayList<TreeItem>();
 	public Tree() {
@@ -25,13 +25,18 @@ public class Tree extends Component{
 		ctx = canvas.getGraphicsContext2D();
 		width = (int) (width==0?App.width*.5:width);
 		height = (int) (height==0?App.height*.5:height);
-		list = new ArrayList<TreeItem>();
 		fontSize = 16;
 		canvas.setWidth(width);
 		canvas.setHeight(height);
 		add(canvas);
 		canvas.setOnMouseClicked(x->{
 			forEachClickEvent(x);
+		});
+	}
+	public Tree(List<String> listString) {
+		this();
+		listString.forEach(x->{
+			add(x);
 		});
 	}
 	@Override
@@ -41,9 +46,10 @@ public class Tree extends Component{
 	}
 	private void update() {
 		if(loaded) {
-			height = (int) (fontSize*size());
+			height = (int) (fontSize*(size()));
 			canvas.setWidth(width);
 			canvas.setHeight(height);
+			System.out.println(height+" "+list);
 			setMinSize(width,fontSize);
 			setPrefSize(width,height);
 			ctx.clearRect(0, 0, width, height);
@@ -62,7 +68,7 @@ public class Tree extends Component{
 		}
 	}
 	private double size() {
-		int a = 0;
+		int a = 1;
 		for(TreeItem i : list) {
 			a+=i.lenght();
 		}
@@ -115,7 +121,6 @@ public class Tree extends Component{
 			}
 			return p;
 		});
-		System.out.println(c);
 		if(c!=null) {
 			if(c.size()!=0) {
 				if(c.isopen()) {
@@ -149,11 +154,13 @@ public class Tree extends Component{
 		return value;
 	}
 	public void add(String string) {
+		System.out.println(string);
 		TreeItem a = new TreeItem(string);
 		add(a);
 	}
 	public void add(TreeItem TI) {
 		list.add(TI);
+		System.out.println(TI);
 		update();
 	}
 	public TreeItem createSection(String string) {
