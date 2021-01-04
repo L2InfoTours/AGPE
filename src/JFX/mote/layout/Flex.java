@@ -33,7 +33,6 @@ public class Flex extends Component {
 		}else {
 			table = new VBox();		
 		}
-		scroll.setContent(table);
 		update();
 	}
 	Pane table;
@@ -57,10 +56,6 @@ public class Flex extends Component {
 		this.follow = follow;
 	}
 	public Flex(int type) {
-		scroll = new ScrollPane();
-		BackgroundFill bg = new BackgroundFill(Color.TRANSPARENT, null, null);
-		scroll.setBackground(new Background(bg));
-		getChildren().add(scroll);
 		this.setType(type);
 	}
 	public Flex() {
@@ -107,6 +102,11 @@ public class Flex extends Component {
 	}
 	@Override
 	public void init() {
+		scroll = new ScrollPane();
+		BackgroundFill bg = new BackgroundFill(Color.TRANSPARENT, null, null);
+		scroll.setBackground(new Background(bg));
+		getChildren().add(scroll);
+		scroll.setContent(table);
 		loaded = true;
 		update();
 	}

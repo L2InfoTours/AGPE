@@ -1,9 +1,13 @@
 package gui.page;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import JFX.mote.components.Text;
 import JFX.mote.components.Title;
 import JFX.mote.controls.Email;
 import JFX.mote.controls.PassField;
+import JFX.mote.controls.Select;
 import JFX.mote.controls.TextField;
 import JFX.mote.layout.Form;
 import javafx.event.ActionEvent;
@@ -24,6 +28,7 @@ public class Inscription extends Form{
 		add(username);
 		mail = new Email("Email");
 		add(mail);
+		add(new Select(Arrays.asList("Secretaritat","Scolarité","Admin")));
 		/*
 		password = new PassField("Mot de Passe");
 		add(password);
