@@ -325,7 +325,6 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 		setWidth(width);
 		table.setWidth(width);
 		table.prefWidth(width);
-		setStyle("-fx-border-color:#f00;");
 		ctx = table.getGraphicsContext2D();
 		System.out.println(width);
 	}
