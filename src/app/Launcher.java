@@ -12,6 +12,7 @@ import gui.page.Inscription;
 import gui.page.Login;
 import gui.page.MainApp;
 import gui.page.TimeExamElement;
+import gui.page.Validation;
 import liaisonappliBDopta.Authentification;
 
 public class Launcher {

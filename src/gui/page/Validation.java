@@ -1,4 +1,4 @@
-package app;
+package gui.page;
 
 import JFX.mote.components.Text;
 import JFX.mote.components.Title;
