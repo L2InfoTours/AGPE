@@ -27,9 +27,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class PrepFich {
-	 String url="jdbc:mysql://localhost/proj_exam";
-		String login="root"; 
-		String password="";
+	String url="jdbc:mysql://localhost/proj_exam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+	String login="root"; 
+	String password="";
 		Connection cn=null;
 
 	public PrepFich(){
@@ -44,7 +44,7 @@ public class PrepFich {
 	
 	public List<Examen> RecupExam(){
 		List<Examen> liste = new ArrayList<Examen>();
-		String requete ="SELECT * FROM examen";
+		String requete ="SELECT * FROM examen ORDER BY ExamenID";
 		Statement st = null;
 		ResultSet rsi = null ;
 		try {
@@ -52,7 +52,7 @@ public class PrepFich {
 			st = cn.createStatement();
 			rsi = st.executeQuery(requete);
 			while(rsi.next()) {
-				Examen a = new Examen(rsi.getString("ExamenTitre") ,"mat" , rsi.getInt("ExamenLenght"), 1, "aucun" );
+				Examen a = new Examen(rsi.getString("ExamenTitre") ,"mat" , rsi.getInt("ExamenLength"), 1, "aucun" );
 				int i = rsi.getInt("ExamenID");
 				List<Etudiant> b = new ArrayList<Etudiant>(); 
 				lectureBD l = new lectureBD();
@@ -80,7 +80,7 @@ public class PrepFich {
 	}
 	public List<Salle> RecupSalle(){
 		List<Salle> liste = new ArrayList<Salle>();
-		String requete ="SELECT * FROM salles";
+		String requete ="SELECT * FROM salles ORDER BY sallesID";
 		Statement st = null;
 		ResultSet rsi = null ;
 		try {
@@ -102,7 +102,7 @@ public class PrepFich {
 	}
 	public List<CrenauHoraire> RecupCreneaux() throws NamingException{
 		List<CrenauHoraire> liste = new ArrayList<CrenauHoraire>();
-		String requete ="SELECT * FROM creneaux";
+		String requete ="SELECT * FROM creneaux ORDER BY CreneauxID";
 		Statement st = null;
 		ResultSet rsi = null ;
 		try {
@@ -111,11 +111,11 @@ public class PrepFich {
 			rsi = st.executeQuery(requete);
 			while(rsi.next()) {
 				String z = rsi.getString("creneauxDT");
-				String c = z.substring(0,9);
+				String c = z.substring(0,10);
 				String [] stra = c.split("-");
-				String date = stra[0] +":"+ stra[1] +":"+ stra[2];
-				String heure = rsi.getString("crenauxDT").substring(11,17);
-				CrenauHoraire a = new CrenauHoraire(date,heure, rsi.getInt("CreneauxLenght"));
+				String date = stra[2] +":"+ stra[1] +":"+ stra[0];
+				String heure = rsi.getString("creneauxDT").substring(11,17);
+				CrenauHoraire a = new CrenauHoraire(date,heure, rsi.getInt("CreneauxLength"));
 				liste.add(a);
 			}
 			}
@@ -125,5 +125,4 @@ public class PrepFich {
 			}
 		return liste;		
 	}
-	
 }

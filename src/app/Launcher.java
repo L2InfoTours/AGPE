@@ -17,6 +17,7 @@ import gui.page.MenuApp;
 import gui.page.TimeExamElement;
 import gui.page.Validation;
 import liaisonappliBDopta.Authentification;
+import liaisonappliBDopta.CreationFich;
 import liaisonappliBDopta.SQLBase;
 import liaisonappliBDopta.Verif;
 import sendMails.ClassMail;
@@ -25,6 +26,9 @@ public class Launcher {
 
 	public static void main(String[] args) throws NumberFormatException, NamingException{
 		SQLBase.connection();
+		PrepFich po = new PrepFich();
+		CreationFich pa = po.Recup("D:/exam/exam_import.exam");
+		pa.creerFile();
 		Frame frame = new Frame("Projet 1");
 		
 		//Inscription 
@@ -63,12 +67,9 @@ public class Launcher {
 		});
 		//MainApp
 		lectureBD a = new lectureBD();
-		List<TimeExamElement> diary = Arrays.asList(
-				new TimeExamElement("F 021","Français",LocalDateTime.of(2021, 01, 01, 12, 30),LocalTime.of(1, 30),null)
-				);
 		
 		List<List<TimeExamElement>> diaries = Arrays.asList(
-				diary,a.execute()
+				a.execute()
 				);
 		MainApp maz = new MainApp("calendar");
 		maz.getCalendar().setDiaries(diaries);
