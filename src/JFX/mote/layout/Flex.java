@@ -82,6 +82,7 @@ public class Flex extends Component {
 			content.forEach(line->{
 				((Component) line).heredite(this);
 				((Component) line).setAlignment(Pos.CENTER);
+				System.out.println(table.getChildren());
 				table.getChildren().add(((Component) line).toNode());
 			});
 		//	autosize();
@@ -102,13 +103,23 @@ public class Flex extends Component {
 	}
 	@Override
 	public void init() {
-		scroll = new ScrollPane();
-		BackgroundFill bg = new BackgroundFill(Color.TRANSPARENT, null, null);
-		scroll.setBackground(new Background(bg));
-		getChildren().add(scroll);
-		scroll.setContent(table);
-		loaded = true;
-		update();
+		if(!loaded) {			
+			scroll = new ScrollPane();
+			BackgroundFill bg = new BackgroundFill(Color.TRANSPARENT, null, null);
+			scroll.setBackground(new Background(bg));
+			getChildren().add(scroll);
+			scroll.setContent(table);
+			loaded = true;
+			if(width!=0&&height!=0) {
+				setPrefSize(width, height);
+				scroll.setPrefSize(width, height);
+				if(follow) {
+					scroll.setFitToWidth(true);
+					scroll.setFitToHeight(true);
+				}
+			}	
+			update();
+		}
 	}
 	@Override
 	protected void updateStyle() {
@@ -118,12 +129,8 @@ public class Flex extends Component {
 	public void setSize(double width, double height) {
 		super.setSize(width, height);
 		setPrefSize(width, height);
-		scroll.setPrefSize(width, height);
-		if(follow) {
-			scroll.setFitToWidth(true);
-			scroll.setFitToHeight(true);
-
-		}
+		this.width = (int) width;
+		this.height = (int) height;
 	}
 	@Override
 	public void heredite(Component component) {

@@ -3,6 +3,7 @@ package gui.page;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import JFX.mote.App;
 import JFX.mote.Element;
 import JFX.mote.Position;
 import JFX.mote.components.Text;
@@ -24,7 +25,7 @@ public class MenuApp extends Panel<BorderPane> {
 		list = new Flex();
 		list.position = Position.Center;
 		add(list);
-		
+		App.setReturnVisible(true);
 	}
 	public void setApp(List<String> ls){
 		List<Element> lb = ls.stream().map(x->{

@@ -2,9 +2,11 @@ package gui.page;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 
+import JFX.mote.components.Text;
 import JFX.mote.controls.Select;
 import JFX.mote.controls.TimePicker;
 import JFX.mote.controls.TimetableElement;
@@ -35,5 +37,11 @@ public class TimeExamElement extends TimetableElement {
 		pop.add(cp);
 		pop.open();
 	}
-
+	@Override
+	public void open() {
+		Popup a = new Popup(getName());
+		a.add(new Text(getDate().format(DateTimeFormatter.ofPattern("hh:mm dd/MM/YY"))));
+		a.add(new Text(getDur().format(DateTimeFormatter.ofPattern("hh:mm"))));
+		a.open();
+	}
 }

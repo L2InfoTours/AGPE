@@ -59,7 +59,11 @@ public abstract class Panel<T extends Pane> extends Component implements Element
 		if(x instanceof Component){
 			((Component) x).heredite(this);
 			((Component) x).toNode();
-			layout.getChildren().add((Node) x);
+			try{
+				layout.getChildren().add((Node) x);
+			}catch (Exception e) {
+				// TODO: handle exception
+			}
 		}
 	}
 	protected void adderInPos(Element x) {
@@ -120,7 +124,7 @@ public abstract class Panel<T extends Pane> extends Component implements Element
 			this.getChildren().addAll(PanelManager.get(page).getChildren());		
 		}catch(Exception e){
 		*/
-			App.setPanel(PanelManager.get(page));
+			App.setPanel(page);
 		//}
 	}
 	/**

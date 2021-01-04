@@ -10,6 +10,7 @@ import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Stream;
 
 import JFX.mote.App;
 import JFX.mote.Component;
@@ -18,6 +19,7 @@ import JFX.mote.layout.Flex;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -95,8 +97,11 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 		bestFit();
 		table.setWidth(width);
 		table.setHeight(height);
+		ScrollPane scroll = new ScrollPane();
+		scroll.setContent(table);
 		autosize();
-		add(table);
+		add(scroll);
+		
 	}
 	@Override
 	public void setSize(double width, double height) {
@@ -151,8 +156,8 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 			for(int h = 0;h<lookupHours*2;h++) {
 				String hr = h%2==0?(h/2+offestHours)+":00":((h-1)/2+offestHours)+":30";
 				if(h%2==0)
-					ctx.fillRect(divWidth, (h+2)*divHeight, width-divWidth, 1);
-				ctx.fillText(hr, 8,(h+2.5)*divHeight);
+					ctx.fillRect((h+1)*5*16,16, 1, height+divHeight);
+				ctx.fillText(hr, (h+1)*5*16,16);
 			}
 		}
 	}
@@ -230,7 +235,16 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 			el.setBound(x, y, Wc, Hd);
 			ctx.setFill(Color.rgb(34,176, 255));
 			ctx.fillRect(x, y, 2, Hd);
-			ctx.fillText(el.getName(), x+padding, y+padding+font);
+			String text = el.getName();
+			int lL = (int) (Wc/ctx.getFont().getSize());
+			text = Stream.of(text.split("\n"))
+					.map(t->t.length()>lL?t.substring(0,lL)+"\n...":t)
+					.reduce("", (p,o)->{
+						return p.length()>0?p+"\n"+o:o;
+					})
+					;
+			
+			ctx.fillText(text, x+padding, y+padding+font);
 		}
 	}
 	private void forEachClickEvent(MouseEvent x) {

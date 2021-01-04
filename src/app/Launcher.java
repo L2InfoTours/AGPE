@@ -11,6 +11,7 @@ import JFX.mote.layout.Popup;
 import gui.page.Inscription;
 import gui.page.Login;
 import gui.page.MainApp;
+import gui.page.MenuApp;
 import gui.page.TimeExamElement;
 import gui.page.Validation;
 import liaisonappliBDopta.Authentification;
@@ -23,11 +24,10 @@ public class Launcher {
 		
 		// 
 		
-		Inscription ins = new Inscription("", null);
+		Inscription ins = new Inscription("inscription", null);
 		ins.setSubmitAction(event->{
 			String user = ins.getUsername();
 			String email = ins.getEmail();
-			String pass = ins.getVerifiedPassWord();
 			//Some Code
 		});
 		
@@ -45,9 +45,10 @@ public class Launcher {
 		login.setSubmitAction(event->{
 			Authentification a = new Authentification(login.getUsername(),login.getPassWord());
 			if (a.getAutorise() == true) {
+				MenuApp b = new MenuApp("menu",login.getUsername());
+				b.setApp(Arrays.asList("login","inscription","exam"));
+				login.setNext("menu");
 				login.next();
-				Popup pop = new Popup("Bienvenue , "+ login.getUsername());
-				pop.open();
 			}
 			else {
 				login.setErrorMessage("Identifiant ou Mot de passe non valide");
@@ -62,16 +63,11 @@ public class Launcher {
 		List<List<TimeExamElement>> diaries = Arrays.asList(
 				diary,a.execute()
 				);
-		MainApp maz = new MainApp("app");
-		System.out.println(diaries);
+		MainApp maz = new MainApp("exam");
 		maz.getCalendar().setDiaries(diaries);
-		login.setNext("app");
+
 		
-		
-		
-		
-		
-		frame.setPanel(ins);
+		frame.setPanel(login);
 		frame.show();
 	}
 	

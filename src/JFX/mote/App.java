@@ -1,17 +1,26 @@
 package JFX.mote;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import JFX.mote.layout.Panel;
+import JFX.mote.layout.PanelManager;
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.SVGPath;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -22,10 +31,12 @@ public class App extends Application{
 	public static int height=768;
 	double clientX = 0;
 	double clientY = 0;
+	private static StackPane Return = new StackPane();
 	static Panel<?> content;
 	private static VBox root = new VBox();
 	public static Stage stage;
 	public static boolean loaded;
+	public static List<String> history = new ArrayList<String>();
 	public static AppThreadManager threadManger = new AppThreadManager();
 
 	@Override
@@ -71,6 +82,16 @@ public class App extends Application{
 		
 		top.setCenter(new Label(App.title));
 		top.setRight(Wbtn);
+		SVGPath img = new SVGPath();
+		img.setContent("M2,14 l16,0 -8,-6 2,0 8,6 -8,6 -2,0 8,-6 l-16,0 l0,-2 Z");
+		Return.getChildren().add(img);
+		Return.setOnMouseClicked(event->{
+			if(!history.isEmpty()) {
+				App.setPanel(history.get(history.size()-2));
+			}
+		});
+		Return.setVisible(false);
+		top.setLeft(Return);
 		
 		//Rectangle content = new Rectangle(width,height);
 		//content.setFill(Color.BLACK);
@@ -98,7 +119,10 @@ public class App extends Application{
 		root.getChildren().add(new Pane());
 		
 	}
-
+	public static void setPanel(String layout) {
+		App.setPanel(PanelManager.get(layout));
+		history.add(layout);
+	}
 	public static void setPanel(Panel<?> layout) {		
 		App.getRoot().getChildren().remove(App.content);
 		App.content = layout;
@@ -107,6 +131,11 @@ public class App extends Application{
 		if(App.content!=null && App.loaded) {
 			App.content.toNode();
 		}
+	}
+
+	public static void setReturnVisible(boolean b) {
+		App.Return.setVisible(b);
+		history.clear();
 	}
 
 }
