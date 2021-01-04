@@ -24,10 +24,12 @@ public class Inscription extends Form{
 		add(username);
 		mail = new Email("Email");
 		add(mail);
+		/*
 		password = new PassField("Mot de Passe");
 		add(password);
 		password1 = new PassField("Repeter le Mot de Passe");
 		add(password1);
+		*/
 		open();
 	}
 	public String getUsername(){
