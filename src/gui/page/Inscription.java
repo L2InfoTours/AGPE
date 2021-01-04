@@ -16,9 +16,9 @@ import javafx.scene.paint.Color;
 
 public class Inscription extends Form{
 
-	private PassField password;
+	//private PassField password;
 	private TextField username;
-	private PassField password1;
+	//private PassField password1;
 	private TextField mail;
 	private Text errormsg;
 	private Select acc;

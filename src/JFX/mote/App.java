@@ -99,13 +99,14 @@ public class App extends Application{
 		
 	}
 
-	public static void setPanel(Panel<?> layout) {
+	public static void setPanel(Panel<?> layout) {		
 		App.getRoot().getChildren().remove(App.content);
-		App.getRoot().getChildren().add(layout);
 		App.content = layout;
-		//App.content.setMinSize(App.width,App.height);
-		if(App.loaded)
+		App.getRoot().getChildren().add(layout);
+		System.out.println(layout.getClass().getName());
+		if(App.content!=null && App.loaded) {
 			App.content.toNode();
+		}
 	}
 
 }

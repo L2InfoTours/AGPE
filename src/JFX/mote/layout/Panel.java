@@ -113,13 +113,15 @@ public abstract class Panel<T extends Pane> extends Component implements Element
 	}
 	@SuppressWarnings("unchecked")
 	protected  void openLayout(String page) {
-		try {
+		System.out.println(PanelManager.get(page));
+		/*try {
 			this.getChildren().clear();
 			PanelManager.get(page).init();
 			this.getChildren().addAll(PanelManager.get(page).getChildren());		
 		}catch(Exception e){
+		*/
 			App.setPanel(PanelManager.get(page));
-		}
+		//}
 	}
 	/**
 	 * Set the next Panel, when the use of this Panel is end.
