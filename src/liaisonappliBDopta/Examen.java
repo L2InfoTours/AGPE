@@ -24,11 +24,10 @@ public class Examen {
 	private List<ContrainteExam> contraintesExam;
 	private List<ContrainteSalle> contraintesSalle;
 	
-	
-	String url="jdbc:mysql://localhost/proj_exam"; 
+	String url="jdbc:mysql://localhost/proj_exam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	String login="root";
 	//String password="root"; 
-	String password=""; // par dÃ©faut
+	String password=""; // par défaut
 
 	// Creation d'une connexion avec DriverManager
 	Connection cn=null;
@@ -47,11 +46,12 @@ public class Examen {
 		num++;
 		
 
-
+		
+		
 	}
 	
 	public void addBD() {
-		String requete = "INSERT INTO examen(ExamenTitre, ExamenLength) VALUES ('"+nom+"',"+duree+")";
+		String requete = "INSERT INTO examen(ExamenTitre, ExamenLength , ExamenMat,ExamenType) VALUES ('"+nom+"',"+duree+")";
 		Connexion a = new Connexion();
 		a.RequeteDB(requete);
 	}
