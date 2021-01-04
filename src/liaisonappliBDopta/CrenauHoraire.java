@@ -34,22 +34,24 @@ public class CrenauHoraire {
     	this.id = num;
     	num++;
     	
-    	String sqlQuery = "INSERT INTO creneaux(CreneauxDT, CreneauxLength) VALUES ('"+this.formate()+"',"+duree+")";
-    	Connexion a = new Connexion();
-		a.RequeteDB(sqlQuery);
+
     
     }
     
     public String formate() {
     	
-    	 //Entrée du fichier exam
+    	 //EntrÃ©e du fichier exam
   
-        String[] DATE_split = date.split(":"); //On split la date depuis le charactère ":"
+        String[] DATE_split = date.split(":"); //On split la date depuis le charactÃ¨re ":"
     	String s = DATE_split[2]+"-"+DATE_split[1]+"-"+DATE_split[0]+" "+ heure;
     	
     	return s;
     	}
-
+	public void AddDB() {
+		String sqlQuery = "INSERT INTO creneaux(CreneauxDT, CreneauxLength) VALUES ('"+this.formate()+"',"+duree+")";
+    	Connexion a = new Connexion();
+		a.RequeteDB(sqlQuery);
+	}
 	public String getDate() {
 		return date;
 	}
