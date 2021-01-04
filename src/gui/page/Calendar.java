@@ -37,7 +37,6 @@ public class Calendar extends Panel<BorderPane>{
 	public void init() {
 		loaded = true;
 		Switch viewmode = new Switch("colonne","ligne");
-		System.out.println(viewmode);
 		flex = new Flex();
 		viewmode.setOnchange(x->{
 			flex.setType(x.isValue()?Flex.Column:Flex.Row);
@@ -52,7 +51,7 @@ public class Calendar extends Panel<BorderPane>{
 		flex.setSize(640, 512);
 		
 		Flex tool = new Flex();
-		tool.setType(tool.Row);
+		tool.setType(Flex.Row);
 		tool.position = Position.Top;
 		tool.add(viewmode);
 		tool.add(new Button("Ajouter",x->{
