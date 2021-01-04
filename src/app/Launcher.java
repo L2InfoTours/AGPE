@@ -53,7 +53,21 @@ public class Launcher {
 				login.setErrorMessage("Identifiant ou Mot de passe non valide");
 			}
 		});
-	
+		FormulaireExam b = new FormulaireExam("Nouveau EXAMEN");
+		if (statuActuel == 1 || statuActuel == 3 )//secretariat or admin
+			{
+		b.setSubmitAction(event->{
+			int duree = Integer.parseInt(b.getDuree());
+			int type = Integer.parseInt(b.getType());
+			try {
+				new Examen(b.getNom(), b.getMat(), duree, type, b.getMateriel());
+			} catch (NamingException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+		}
+		
 		lectureBD a = new lectureBD();
 		List<TimeExamElement> diary = Arrays.asList(
 				new TimeExamElement("F 021","Français",LocalDateTime.of(2021, 01, 01, 12, 30),LocalTime.of(1, 30),null)
