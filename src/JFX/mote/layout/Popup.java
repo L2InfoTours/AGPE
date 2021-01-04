@@ -57,6 +57,7 @@ public class Popup {
 		add(new Title(name));
 		content.init();
 		content.setMinSize(App.width*.8, App.height*.8);
+		scroll.setMinSize(App.width*.8, App.height*.8);
 		//content.setMaxSize(App.width*.8, App.height*.8);
 		//content.setAlignment(Pos.TOP_CENTER);
 		
