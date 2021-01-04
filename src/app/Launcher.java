@@ -25,18 +25,17 @@ public class Launcher {
 		
 		Inscription ins = new Inscription("", null);
 		ins.setSubmitAction(event->{
-			//Some Code
 			String user = ins.getUsername();
 			String email = ins.getEmail();
 			String pass = ins.getVerifiedPassWord();
-			
+			//Some Code
 		});
 		
 		
 		Validation val = new Validation("val", null);
 		val.setSubmitAction(event->{
-			//Some Code
 			String code = val.getCode();
+			//Some Code
 		});
 		
 		ins.setNext("val");
