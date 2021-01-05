@@ -41,6 +41,7 @@ public class Authentification {
 			if (a == b) {
 				this.Autorise = true;
 				System.out.println(this.Autorise) ;
+				this.setStatut(resultats.getInt("LoginStatus"));
 			}
 		}}
 		catch(SQLException e) {
