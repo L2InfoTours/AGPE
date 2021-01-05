@@ -14,8 +14,10 @@ public class TreeItem {
 	private boolean state;
 	private int[] bound = new int[5];
 	private TreeItem c;
-	public TreeItem(String string) {
+	private String Parent;
+	public TreeItem(String string,String parent ) {
 		text = string;
+		Parent = parent;
 	}
 	public String getText() {
 		return text;
@@ -32,7 +34,7 @@ public class TreeItem {
 		//bound[4] = 0;
 	}
 	public boolean add(String e) {
-		return content.add(new TreeItem(e));
+		return content.add(new TreeItem(e,this.text));
 	}
 	public void setBound(int x, int y, int w, int h) {
 		bound[0] = x;
@@ -86,5 +88,11 @@ public class TreeItem {
 			a+=i.lenght();
 		}
 		return a;
+	}
+	/**
+	 * @return the parent
+	 */
+	public String getParent() {
+		return Parent;
 	}
 }

@@ -7,6 +7,8 @@ import java.util.Set;
 import JFX.mote.App;
 import JFX.mote.Component;
 import JFX.mote.MathUtils;
+import JFX.mote.layout.PanelManager;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +22,7 @@ public class Tree extends Component{
 	private List<TreeItem> list = new ArrayList<TreeItem>();;
 	private int ryl;
 	private List<TreeItem> value = new ArrayList<TreeItem>();
+	private EventHandler<MouseEvent> onchange;
 	public Tree() {
 		canvas = new Canvas();
 		ctx = canvas.getGraphicsContext2D();
@@ -130,6 +133,7 @@ public class Tree extends Component{
 				}
 			}else {
 				switchValue(c);
+				onchange.handle(x);
 			}
 		}
 		update();
@@ -155,16 +159,15 @@ public class Tree extends Component{
 	}
 	public void add(String string) {
 		System.out.println(string);
-		TreeItem a = new TreeItem(string);
+		TreeItem a = new TreeItem(string,null);
 		add(a);
 	}
 	public void add(TreeItem TI) {
 		list.add(TI);
-		System.out.println(TI);
 		update();
 	}
 	public TreeItem createSection(String string) {
-		TreeItem a = new TreeItem(string);
+		TreeItem a = new TreeItem(string,null);
 		add(a);
 		return a;
 	}
@@ -176,6 +179,9 @@ public class Tree extends Component{
 		}
 		list.clear();
 		
+	}
+	public void setOnChange(EventHandler<MouseEvent> onchange) {
+		this.onchange = onchange;
 	}
 	
 }
