@@ -76,7 +76,7 @@ public class SQLBase {
 	}
 	public static List<String> getPromo() {
 		List<String> ls = new ArrayList<String>();
-		ResultSet rs = Query("SELECT Promo,Annee FROM eleves");
+		ResultSet rs = Query("SELECT Distinct Promo,Annee FROM eleves");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String fil = rs.getString("Promo");

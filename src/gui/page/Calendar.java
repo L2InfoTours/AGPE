@@ -13,6 +13,7 @@ import JFX.mote.controls.Timetable;
 import JFX.mote.controls.TimetableElement;
 import JFX.mote.layout.Flex;
 import JFX.mote.layout.Panel;
+import JFX.mote.layout.Popup;
 import javafx.scene.layout.BorderPane;
 
 public class Calendar extends Panel<BorderPane>{
@@ -58,7 +59,14 @@ public class Calendar extends Panel<BorderPane>{
 		tool.position = Position.Top;
 		tool.add(viewmode);
 		tool.add(new Button("Ajouter",x->{
-			
+			Popup pop = new Popup("Ajouter un Examen");
+			CreationPanel cp = new CreationPanel();
+			cp.setSubmitAction(event->{		
+				pop.close();
+			});
+			cp.open();
+			pop.add(cp);
+			pop.open();
 		}));
 		add(tool);
 		add(flex);
