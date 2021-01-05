@@ -265,6 +265,35 @@ ALTER TABLE `login`
 --
 ALTER TABLE `salles`
   MODIFY `SallesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  
+  
+-- Mote
+
+CREATE TABLE `matiere` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Name` varchar(25) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- default content
+
+INSERT INTO `matiere` (`ID`, `Name`) VALUES
+(NULL,"IDB"),
+(NULL,"JAVA"),
+(NULL,"GL");
+
+
+CREATE TABLE `materiel` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `Name` varchar(25) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- default content
+
+INSERT INTO `materiel` (`ID`, `Name`) VALUES
+(NULL,"PC"),
+(NULL,"TP"),
+(NULL,"Amphi");
+  
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
