@@ -10,6 +10,7 @@ import JFX.mote.controls.Button;
 import JFX.mote.controls.DatePicker;
 import JFX.mote.controls.Switch;
 import JFX.mote.controls.Timetable;
+import JFX.mote.controls.TimetableElement;
 import JFX.mote.layout.Flex;
 import JFX.mote.layout.Panel;
 import javafx.scene.layout.BorderPane;
@@ -21,17 +22,19 @@ public class Calendar extends Panel<BorderPane>{
 	}
 	private Flex flex;
 	private List<List<TimeExamElement>> diaries;
-	public void setDiaries(List<List<TimeExamElement>> diaries) {
-		this.diaries = diaries;
+	public void setDiaries(List<List<TimeExamElement>> list) {
+		this.diaries = list;
 		updateDiaries();
 	}
 		public void updateDiaries() {
 			if(loaded) {
 				flex.clear();
-				diaries.forEach(diary->{
-					Timetable<TimeExamElement> temp = new Timetable<TimeExamElement>(diary);
-					flex.add(temp);
-				});
+				if(diaries!=null) {					
+					diaries.forEach(diary->{
+						Timetable<TimeExamElement> temp = new Timetable<TimeExamElement>(diary);
+						flex.add(temp);
+					});
+				}
 			}
 		}
 	public void init() {

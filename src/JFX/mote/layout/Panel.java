@@ -168,5 +168,7 @@ public abstract class Panel<T extends Pane> extends Component implements Element
 	protected void of(BorderPane borderPane) {
 		
 	}
-	
+	public ObservableList<Node> getChilds() {
+		return layout.getChildren();
+	}
 }

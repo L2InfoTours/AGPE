@@ -8,8 +8,6 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import JFX.mote.Frame;
-import JFX.mote.layout.Form;
-import JFX.mote.layout.Popup;
 import gui.page.Inscription;
 import gui.page.Login;
 import gui.page.MainApp;
@@ -75,7 +73,9 @@ public class Launcher {
 				a.execute()
 				);
 		MainApp maz = new MainApp("calendar");
-		maz.getCalendar().setDiaries(diaries);
+		maz.setListener(values->{
+			return SQLBase.getExams(values);
+		});
 		
 		// Login
 		Login login = new Login("login");

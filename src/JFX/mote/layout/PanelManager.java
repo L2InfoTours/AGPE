@@ -2,6 +2,9 @@ package JFX.mote.layout;
 
 import java.util.HashMap;
 
+import JFX.mote.Component;
+import JFX.mote.controls.Tree;
+
 @SuppressWarnings("rawtypes")
 public abstract class PanelManager  {
 	private static HashMap<String, Panel> I; 

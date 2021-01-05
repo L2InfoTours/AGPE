@@ -161,6 +161,20 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 				ctx.fillText(hr, (h+1)*5*16,16);
 			}
 		}
+		int week = lookup.get(WEEK_OF_YEAR);
+		TimeElements.forEach(te ->{
+			if(
+					te.isWeek(week) 
+					) {
+				drawCase(te,true);
+			}
+		});
+		ctx.setFill(Color.RED);
+		LocalDate date = LocalDate.now();
+		LocalDateTime time = LocalDateTime.now();
+		double y = ((time.getHour()+1)*2)+((time.getMinute()+0.0)/30);
+		y = (y-(offestHours*2))*divWidth;
+		ctx.fillRect( y-2,date.getDayOfWeek().getValue()*height, 2, divHeight);
 	}
 	/**
 	 * upadte the timetable canvas in  Column Mode
@@ -200,7 +214,7 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 				if(
 						te.isWeek(week) 
 						) {
-					drawCase(te);
+					drawCase(te,false);
 				}
 			});
 			ctx.setFill(Color.RED);
@@ -211,7 +225,7 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 			ctx.fillRect(date.getDayOfWeek().getValue()*divWidth, y-2, divWidth, 2);
 		}
 	}
-	private void drawCase(TimetableElement el) {
+	private void drawCase(TimetableElement el,boolean inv) {
 		if(
 				el.getDay()>offestDays-1 && el.getDay()<lookupDays+offestDays
 				&&
@@ -232,20 +246,37 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 			int padding = 5; 
 			int font = (int) ctx.getFont().getSize();
 			ctx.setFill(Color.WHITE);
-			ctx.fillRect(x, y, Wc, Hd);
-			el.setBound(x, y, Wc, Hd);
-			ctx.setFill(Color.rgb(34,176, 255));
-			ctx.fillRect(x, y, 2, Hd);
-			String text = el.getName();
-			int lL = (int) (Wc/ctx.getFont().getSize());
-			text = Stream.of(text.split("\n"))
-					.map(t->t.length()>lL?t.substring(0,lL)+"\n...":t)
-					.reduce("", (p,o)->{
-						return p.length()>0?p+"\n"+o:o;
-					})
-					;
-			
-			ctx.fillText(text, x+padding, y+padding+font);
+			if(inv) {
+				ctx.fillRect(y, x, Hd, Wc);
+				el.setBound(y, x, Hd, Wc);
+				ctx.setFill(Color.rgb(34,176, 255));
+				ctx.fillRect(y, x, 2, Wc);
+				String text = el.getName();
+				int lL = (int) (Hd/ctx.getFont().getSize());
+				text = Stream.of(text.split("\n"))
+						.map(t->t.length()>lL?t.substring(0,lL)+"\n...":t)
+						.reduce("", (p,o)->{
+							return p.length()>0?p+"\n"+o:o;
+						})
+						;
+				
+				ctx.fillText(text,y+padding+font, x+padding);
+			}else {
+				ctx.fillRect(x, y, Wc, Hd);
+				el.setBound(x, y, Wc, Hd);
+				ctx.setFill(Color.rgb(34,176, 255));
+				ctx.fillRect(x, y, 2, Hd);
+				String text = el.getName();
+				int lL = (int) (Wc/ctx.getFont().getSize());
+				text = Stream.of(text.split("\n"))
+						.map(t->t.length()>lL?t.substring(0,lL)+"\n...":t)
+						.reduce("", (p,o)->{
+							return p.length()>0?p+"\n"+o:o;
+						})
+						;
+				
+				ctx.fillText(text, x+padding, y+padding+font);
+			}
 		}
 	}
 	private void forEachClickEvent(MouseEvent x) {

@@ -18,6 +18,8 @@ import javafx.scene.paint.Color;
 import liaisonappliBDopta.SQLBase;
 
 public class Side extends Panel<BorderPane>{
+	public static final String strSalle = "Salles";
+	public static final String strPromo = "Promo";
 	public Side() {
 		super(new BorderPane());
 	}
@@ -35,11 +37,11 @@ public class Side extends Panel<BorderPane>{
 		t.position = Position.Top;
 		add(t);	
 		Tree ttl = new Tree();
-		TreeItem salle = ttl.createSection("Salle");
+		TreeItem salle = ttl.createSection(strSalle);
 		SQLBase.getSalle().forEach(x->{
 			salle.add(x);
 		});
-		TreeItem promo = ttl.createSection("promo");
+		TreeItem promo = ttl.createSection(strPromo);
 		SQLBase.getPromo().forEach(x->{
 			promo.add(x);
 		});
