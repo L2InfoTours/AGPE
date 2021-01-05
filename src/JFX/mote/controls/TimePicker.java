@@ -9,6 +9,8 @@ import JFX.mote.Component;
 import JFX.mote.MathUtils;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -25,8 +27,17 @@ public class TimePicker extends Component {
 			"45","50","55","00","05","10","15","20","25","30","35","40");
 	private boolean start = false;
 	private int currentValue;
+	private String name;
+	private Label text;
+	public TimePicker(String string) {
+		super();
+		name = string;
+	}
 	@Override
 	public void init() {
+		VBox pane = new VBox();
+		text = new Label(name);
+		text.setTextFill(textColor);
 		table = new Canvas();
 		width = height = (int) MathUtils.max(width, height, 128);
 		table.setOnMouseMoved(event->{
@@ -56,7 +67,8 @@ public class TimePicker extends Component {
 		});
 		setPrefSize(width, height);
 		setMinSize(width, height);
-		add(table);
+		pane.getChildren().addAll(text,table);
+		add(pane);
 		ctx = table.getGraphicsContext2D();
 		table.setWidth(width);
 		table.setHeight(height);
@@ -124,6 +136,10 @@ public class TimePicker extends Component {
 	 */
 	public void setValue(LocalTime value) {
 		this.value = value;
+	}
+	@Override
+	protected void updateStyle() {
+		text.setTextFill(textColor);
 	}
 
 }

@@ -15,9 +15,9 @@ public class Login extends Form{
 	public Login(String name){
 		super(name,null);
 		add(new Title("Connection"));
-		username = new TextField("Name2");
+		username = new TextField("Utilisateur");
 		add(username);
-		password = new PassField("Name2");
+		password = new PassField("Mot de passe");
 		add(password);
 		open();
 	}

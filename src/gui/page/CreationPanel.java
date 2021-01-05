@@ -41,12 +41,19 @@ public class CreationPanel extends Form{
 	public CreationPanel() {
 		super("Ajouter un examen",null);
 		nom = new TextField("Identifiant");
-		topic = new Select();
-		duree = new Spinner();
-		time = new TimePicker();
-		eleveTree = new Tree();
-		type = new Select();
-		materiel = new Select();
+		nom.setColor(Color.WHITESMOKE);
+		topic = new Select("Matiere");
+		topic.setColor(Color.WHITESMOKE);
+		duree = new Spinner("Durée");
+		duree.setColor(Color.WHITESMOKE);
+		time = new TimePicker("Heure");
+		time.setColor(Color.WHITESMOKE);
+		eleveTree = new Tree("Eleves");
+		eleveTree.setColor(Color.WHITESMOKE);
+		type = new Select("Type");
+		type.setColor(Color.WHITESMOKE);
+		materiel = new Select("Materiel");
+		materiel.setColor(Color.WHITESMOKE);
 		add(nom);
 		topic.setList(SQLBase.getTopics());
 		add(topic);

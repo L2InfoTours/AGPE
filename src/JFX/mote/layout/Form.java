@@ -17,7 +17,7 @@ public class Form extends Panel<VBox>{
 		if(onclick==null) {
 			onclick = x->{this.next();};
 		}
-		submit = new Submit("Name",onclick);
+		submit = new Submit("Valider",onclick);
 		layout.setAlignment(Pos.CENTER);
 		setAlignment(Pos.CENTER);
 	}

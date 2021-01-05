@@ -23,12 +23,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Font;
 
 public class Select extends Component{
 	private Label text;
 	private javafx.scene.control.TextField input;
 	private EventHandler<? super KeyEvent> onchange = event->{};
 	private String value;
+	private String name = "";
 	private List<String> list;
 	private boolean visible;
 	private Flex flex;
@@ -46,14 +48,19 @@ public class Select extends Component{
 		this("",ls);
 	}
 	public Select() {
-		this(null);
+		this(new ArrayList<String>());
+	}
+	public Select(String string) {
+		this();
+		name = string;
 	}
 	@Override
 	public void init() {
 		VBox pane = new VBox();
-		text = new Label(value);
+		text = new Label(name);
 		text.setPadding(new Insets(16));
 		text.setAlignment(Pos.CENTER_LEFT);
+		text.setTextFill(textColor);
 			
 		HBox field = new HBox();
 		
@@ -153,5 +160,9 @@ public class Select extends Component{
 	}
 	public String getValue() {
 		return value;
+	}
+	@Override
+	protected void updateStyle() {
+		text.setTextFill(textColor);
 	}
 }

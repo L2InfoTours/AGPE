@@ -9,9 +9,13 @@ import JFX.mote.Component;
 import JFX.mote.MathUtils;
 import JFX.mote.layout.PanelManager;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -23,6 +27,8 @@ public class Tree extends Component{
 	private int ryl;
 	private List<TreeItem> value = new ArrayList<TreeItem>();
 	private EventHandler<MouseEvent> onchange = event->{};
+	private String name;
+	private Label text;
 	public Tree() {
 		canvas = new Canvas();
 		ctx = canvas.getGraphicsContext2D();
@@ -31,7 +37,7 @@ public class Tree extends Component{
 		fontSize = 16;
 		canvas.setWidth(width);
 		canvas.setHeight(height);
-		add(canvas);
+		
 		canvas.setOnMouseClicked(x->{
 			forEachClickEvent(x);
 		});
@@ -42,8 +48,20 @@ public class Tree extends Component{
 			add(x);
 		});
 	}
+	public Tree(String string) {
+		this();
+	}
 	@Override
 	public void init() {
+		VBox pane = new VBox();
+		text = new Label(name);
+		text.setTextFill(textColor);
+		text.setPadding(new Insets(16));
+		text.setAlignment(Pos.CENTER_LEFT);
+		text.setTextFill(textColor);
+		System.out.println(textColor);
+		pane.getChildren().addAll(text,canvas);
+		add(pane);
 		loaded = true;
 		update();
 	}
@@ -183,5 +201,8 @@ public class Tree extends Component{
 	public void setOnChange(EventHandler<MouseEvent> onchange) {
 		this.onchange = onchange;
 	}
-	
+	@Override
+	protected void updateStyle() {
+		text.setTextFill(textColor);
+	}
 }

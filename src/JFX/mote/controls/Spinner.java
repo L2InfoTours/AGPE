@@ -23,6 +23,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
+import javafx.scene.text.Font;
 
 public class Spinner extends Component{
 	private Label text;
@@ -45,13 +46,16 @@ public class Spinner extends Component{
 	public Spinner() {
 		this("",0);
 	}
+	public Spinner(String string) {
+		this(string,0);
+	}
 	@Override
 	public void init() {
 		VBox pane = new VBox();
 		text = new Label(name);
 		text.setPadding(new Insets(16));
 		text.setAlignment(Pos.CENTER_LEFT);
-			
+		text.setTextFill(textColor);
 		HBox field = new HBox();
 		
 		VBox textfield = new VBox();
@@ -135,5 +139,9 @@ public class Spinner extends Component{
 	}
 	public int getValue() {
 		return value;
+	}
+	@Override
+	protected void updateStyle() {
+		text.setTextFill(textColor);
 	}
 }

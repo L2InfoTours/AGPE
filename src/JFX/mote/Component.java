@@ -61,6 +61,7 @@ public abstract class Component extends StackPane implements Element{
 	 * @param component 
 	 */
 	public void heredite(Component component) {
+		System.out.println(component.textColor);
 		this.backgroundColor = backgroundColor==null?
 				(component.backgroundColor!=null?component.backgroundColor:(Color.grayRgb(0xee)))
 						:backgroundColor;

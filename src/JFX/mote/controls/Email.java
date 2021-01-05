@@ -22,7 +22,6 @@ public class Email extends TextField {
 	public String getText() {
 		String text = super.getText();
 		Matcher mat = email.matcher(text);
-		System.out.println("getmail");
 		if(mat.matches()) {
 			setErrorMessage("");
 			return text;
