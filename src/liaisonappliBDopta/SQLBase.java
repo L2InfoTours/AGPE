@@ -93,7 +93,7 @@ public class SQLBase {
 	}
 	public static List<String> getTopics() {
 		List<String> ls = new ArrayList<String>();
-		ResultSet rs = Query("SELECT Nom FROM Matiere");
+		ResultSet rs = Query("SELECT Name FROM Matiere");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String nom= rs.getString("Name");
@@ -108,7 +108,7 @@ public class SQLBase {
 	}
 	public static List<String> getMateriel() {
 		List<String> ls = new ArrayList<String>();
-		ResultSet rs = Query("SELECT Nom FROM Materiel");
+		ResultSet rs = Query("SELECT Name FROM Materiel");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String nom= rs.getString("Name");

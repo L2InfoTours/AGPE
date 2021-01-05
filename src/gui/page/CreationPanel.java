@@ -46,6 +46,9 @@ public class CreationPanel extends Form{
 			});
 		});
 		add(eleveTree);
+		setSubmitAction(event->{
+			
+		});
 	}
 	public String getMateriel() {
 		return materiel.getText();

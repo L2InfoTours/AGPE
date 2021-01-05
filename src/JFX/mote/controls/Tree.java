@@ -22,7 +22,7 @@ public class Tree extends Component{
 	private List<TreeItem> list = new ArrayList<TreeItem>();;
 	private int ryl;
 	private List<TreeItem> value = new ArrayList<TreeItem>();
-	private EventHandler<MouseEvent> onchange;
+	private EventHandler<MouseEvent> onchange = event->{};
 	public Tree() {
 		canvas = new Canvas();
 		ctx = canvas.getGraphicsContext2D();
