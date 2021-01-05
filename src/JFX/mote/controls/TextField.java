@@ -40,6 +40,7 @@ public class TextField extends Component{
 		input.setMinSize(624, 32);
 		input.setMaxSize(624, 32);
 		input.setStyle("-fx-background-radius:20 20 20 20;-fx-background-color:#fff;");
+		input.setOnKeyPressed(this.onchange);
 		
 		textfield.setAlignment(Pos.CENTER);
 		textfield.setStyle("-fx-background-radius:20 20 20 20;-fx-background-color:#fff;"
@@ -63,6 +64,9 @@ public class TextField extends Component{
 	}
 	public void setOnchange(EventHandler<? super KeyEvent> onchange) {
 		this.onchange = onchange;
+		if(loaded) {
+			input.setOnKeyPressed(this.onchange);
+		}
 	}
 	public String getText() {
 		return input.getText();

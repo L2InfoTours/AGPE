@@ -25,7 +25,7 @@ public class SQLBase {
 			}
 		}
 	}
-	private static ResultSet execute(String sql) {
+	private static ResultSet Query(String sql) {
 		if(cn!=null) {
 			try {
 				Statement st = cn.createStatement();
@@ -35,9 +35,19 @@ public class SQLBase {
 		}
 		return null;
 	}
+	private static int Update(String sql) {
+		if(cn!=null) {
+			try {
+				Statement st = cn.createStatement();
+				return st.executeUpdate(sql);
+			} catch (SQLException e) {
+			}
+		}
+		return 0;
+	}
 	public static List<String> getSalle() {
 		List<String> ls = new ArrayList<String>();
-		ResultSet rs = execute("Select SallesNom, SallesCapacite from salles");
+		ResultSet rs = Query("Select SallesNom, SallesCapacite from salles");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String name = rs.getString("SallesNom");
@@ -53,7 +63,7 @@ public class SQLBase {
 	}
 	public static List<String> getPromo() {
 		List<String> ls = new ArrayList<String>();
-		ResultSet rs = execute("SELECT Promo,Annee FROM eleves");
+		ResultSet rs = Query("SELECT Promo,Annee FROM eleves");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String fil = rs.getString("Promo");
@@ -70,7 +80,7 @@ public class SQLBase {
 	}
 	public static List<String> getTopics() {
 		List<String> ls = new ArrayList<String>();
-		ResultSet rs = execute("SELECT Nom FROM Matiere");
+		ResultSet rs = Query("SELECT Nom FROM Matiere");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String nom= rs.getString("Nom");
@@ -85,7 +95,7 @@ public class SQLBase {
 	}
 	public static List<String> getMateriel() {
 		List<String> ls = new ArrayList<String>();
-		ResultSet rs = execute("SELECT Nom FROM Materiel");
+		ResultSet rs = Query("SELECT Nom FROM Materiel");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String nom= rs.getString("Nom");
@@ -103,7 +113,7 @@ public class SQLBase {
 		String a = x.split(" ")[0].substring(1);
 		String b = x.substring(2+a.length());
 		System.out.println("SELECT EleveNom,ElevePrenom FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
-		ResultSet rs = execute("SELECT EleveNom,ElevePrenom,EleveNum FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
+		ResultSet rs = Query("SELECT EleveNom,ElevePrenom,EleveNum FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String nom= rs.getString("EleveNom");

@@ -27,7 +27,7 @@ public class Launcher {
 	public static void main(String[] args) throws NumberFormatException, NamingException{
 		SQLBase.connection();
 		PrepFich po = new PrepFich();
-		CreationFich pa = po.Recup("D:/exam/exam_import.exam");
+		CreationFich pa = po.Recup("data/exam_import.exam");
 		pa.creerFile();
 		Frame frame = new Frame("Projet 1");
 		
