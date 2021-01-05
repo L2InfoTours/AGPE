@@ -18,10 +18,10 @@ public class Verif {
     public boolean Verification(String username , String mail){
         ResultSet resultats = null ;
         
-        String requete = "SELECT LoginUser,LoginMail FROM login WHERE ( LoginUser = '"+username+"' AND LoginMail = '"+mail+"')";
+        String requete = "SELECT LoginUser,LoginMail FROM login WHERE ( LoginUser = '"+username+"' OR LoginMail = '"+mail+"')";
         System.out.println(requete);
         Statement st = null;
-        int rs = 0;
+       
         try {
             cn= DriverManager.getConnection(url, login, password);
             st = cn.createStatement();

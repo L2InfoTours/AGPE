@@ -17,6 +17,7 @@ import gui.page.MenuApp;
 import gui.page.TimeExamElement;
 import gui.page.Validation;
 import liaisonappliBDopta.Authentification;
+import liaisonappliBDopta.Connexion;
 import liaisonappliBDopta.CreationFich;
 import liaisonappliBDopta.SQLBase;
 import liaisonappliBDopta.Verif;
@@ -32,6 +33,7 @@ public class Launcher {
 		Frame frame = new Frame("Projet 1");
 		
 		//Inscription 
+		
 		Inscription inscription = new Inscription("inscription", null);
 		inscription.setSubmitAction(event->{
 			String user = inscription.getUsername();
@@ -49,7 +51,20 @@ public class Launcher {
                 }
                 try {
                     ClassMail.sendMail(email,"Création de votre compte","Bonjour,\nVotre compte du groupe "+accType+" a été crée.\nVotre mot de passe est:\n"+pass);
-                } catch (Exception e) {
+                    int status = 0;
+                    if(accType=="Secretariat") {
+                        status=1;
+                    }else if(accType=="Scolarité") {
+                        status=2;
+                    }else if(accType=="Admin") {
+                        status=3;
+                    }
+                    Connexion add = new Connexion();
+                    System.out.println("INSERT INTO login (LoginUser, LoginPass, LoginStatus, LoginMail) VALUES (\'"+user+"\',\'"+pass+"\',\'"+status+"\',\'"+email+"\')");
+                    add.RequeteDB("INSERT INTO login (LoginUser, LoginPass, LoginStatus, LoginMail) VALUES (\'"+user+"\',\'"+pass+"\',\'"+status+"\',\'"+email+"\')");
+                    System.out.println("Done!");     
+                    }
+                	catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
