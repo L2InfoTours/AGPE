@@ -16,6 +16,7 @@ import JFX.mote.App;
 import JFX.mote.Component;
 import JFX.mote.Element;
 import JFX.mote.layout.Flex;
+import gui.page.CreationPanel;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -259,8 +260,7 @@ public class Timetable<T extends TimetableElement> extends Flex implements Runna
 		}else {
 			try {
 				TimeElements.get(0).createPanel();				
-			}catch(NullPointerException e){
-				
+			}catch(IndexOutOfBoundsException e){
 			}catch(Exception e){
 				e.printStackTrace();
 			}

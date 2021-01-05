@@ -1,5 +1,9 @@
 package app;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -56,7 +60,7 @@ public class Setup {
 				IDB.next();
 				System.out.println(DB);
 				Use(DB);
-				importSQL("data/proj_exam");
+				//importSQL("data/proj_exam.sql");
 				
 			}
 		});
@@ -68,7 +72,15 @@ public class Setup {
 		frame.show();
 	}
 	private static void importSQL(String string) {
-		// TODO Auto-generated method stub
+		try {
+			InputStream file = new FileInputStream(string);
+			byte[] array = new byte[file.available()];
+			file.read(array);
+			String data = new String(array);
+            Update(data);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	private static void Use(String dB2) {
@@ -96,7 +108,6 @@ public class Setup {
 	}
 	private static void Update(String sql) {
 		int a = -1;
-		System.out.println(sql);
 		if(cn!=null) {
 			try {
 				Statement st = cn.createStatement();
