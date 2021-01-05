@@ -51,9 +51,10 @@ public class Examen {
 	}
 	
 	public void addBD() {
-		String requete = "INSERT INTO examen(ExamenTitre, ExamenLength , ExamenMat,ExamenType) VALUES ('"+nom+"',"+duree+")";
+		String requete = "INSERT INTO examen(ExamenTitre, ExamenLength , ExamenMat,ExamenType) VALUES ('"+nom+"',"+duree+",'"+matiere+"','"+type+"')";
+		System.out.println(requete);
 		Connexion a = new Connexion();
-		a.RequeteDB(requete);
+		a.RequeteDB(requete);			
 	}
 	public void addEtudiant(Etudiant Etu) {
 		etudiants.add(Etu);

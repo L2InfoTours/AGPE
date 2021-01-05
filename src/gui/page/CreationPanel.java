@@ -1,8 +1,14 @@
 package gui.page;
 
+import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
+import javax.naming.NamingException;
 
 import JFX.mote.components.Text;
 import JFX.mote.controls.Select;
@@ -13,10 +19,16 @@ import JFX.mote.controls.Tree;
 import JFX.mote.controls.TreeItem;
 import JFX.mote.layout.Form;
 import JFX.mote.layout.Popup;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
+import liaisonappliBDopta.Etudiant;
+import liaisonappliBDopta.Examen;
 import liaisonappliBDopta.SQLBase;
 
 public class CreationPanel extends Form{
+	final static String Oral = "oral";
+	final static String Ecrit = "écrit";
 	private Select materiel;
 	private Select topic;
 	private Spinner duree ;
@@ -24,6 +36,8 @@ public class CreationPanel extends Form{
 	private TimePicker time;
 	private TextField nom;
 	private Text errormsg;
+	private Select type;
+	private EventHandler<ActionEvent> onclick = x->{};
 	public CreationPanel() {
 		super("Ajouter un examen",null);
 		nom = new TextField("Identifiant");
@@ -31,6 +45,7 @@ public class CreationPanel extends Form{
 		duree = new Spinner();
 		time = new TimePicker();
 		eleveTree = new Tree();
+		type = new Select();
 		materiel = new Select();
 		add(nom);
 		topic.setList(SQLBase.getTopics());
@@ -39,15 +54,35 @@ public class CreationPanel extends Form{
 		add(materiel);
 		add(time);
 		add(duree);
+		type.setList(Arrays.asList(Oral,Ecrit));
+		add(type);
 		SQLBase.getPromo().forEach(x->{
 			TreeItem sec = eleveTree.createSection(x);
 			SQLBase.getElevesIn(x).forEach(y->{
-				sec.add(y);
+				sec.add(y[0],y[1].toString());
 			});
 		});
 		add(eleveTree);
-		setSubmitAction(event->{
-			
+		super.setSubmitAction(event->{
+			System.out.println("ZERTYUI");
+			try {
+				Examen ex = new Examen(nom.getText(),
+						topic.getValue(),
+						duree.getValue(),
+						type.getValue()==Oral?1001:0110,
+						materiel.getValue()
+						);
+				
+				List<Etudiant> ls = eleveTree.getValue().stream().map(x->{
+					return (Etudiant) x.getObj();
+				}).collect(Collectors.toList());
+				ex.addListEtudiant(ls);
+				System.out.println(ex);
+				ex.addBD();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			onclick.handle(event);
 		});
 	}
 	public String getMateriel() {
@@ -85,5 +120,8 @@ public class CreationPanel extends Form{
 		}else {
 			errormsg.setText(value);
 		}
+	}
+	public void  setSubmitAction(EventHandler<ActionEvent> onclick) {
+		this.onclick = onclick;
 	}
 }

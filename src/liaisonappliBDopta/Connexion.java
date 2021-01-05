@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 public class Connexion {
 	
-	 	String url="jdbc:mysql://localhost/proj_exam";
+	 	String url="jdbc:mysql://localhost/proj_exam?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		String login="root"; 
 		String password="";
 		Connection cn=null;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 04 jan. 2021 à 23:45
+-- Généré le : mar. 05 jan. 2021 à 14:52
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 8.0.0
 
@@ -157,7 +157,9 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`LoginID`, `LoginUser`, `LoginPass`, `LoginStatus`, `LoginMail`) VALUES
-(1, 'Tom', 'deusvult', 3, 'tom.martin@gmail.com');
+(1, 'Tom', 'deusvult', 3, 'tom.martin@gmail.com'),
+(2, 'secretariat', 'secretariat', 1, 'secretariat@gmail.com'),
+(3, 'scolarite', 'scolarite', 2, 'scolarite@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -258,15 +260,15 @@ ALTER TABLE `examen`
 -- AUTO_INCREMENT pour la table `login`
 --
 ALTER TABLE `login`
-  MODIFY `LoginID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `LoginID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `salles`
 --
 ALTER TABLE `salles`
   MODIFY `SallesID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-  
-  
+COMMIT;
+
 -- Mote
 
 CREATE TABLE `matiere` (
@@ -277,10 +279,9 @@ CREATE TABLE `matiere` (
 -- default content
 
 INSERT INTO `matiere` (`ID`, `Name`) VALUES
-(NULL,"IDB"),
-(NULL,"JAVA"),
-(NULL,"GL");
-
+(0,"IDB"),
+(1,"JAVA"),
+(2,"GL");
 
 CREATE TABLE `materiel` (
   `ID` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,

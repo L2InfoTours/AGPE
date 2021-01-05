@@ -1,7 +1,7 @@
 [Exams:3]
-120, 
+120, 2190325, 21354579
+120, 21354679, 21354879
 150, 
-120, 
 [Periods:4]
 04:01:2021, 09:30:, 190, 0
 04:01:2021, 14:00:, 210, 0
@@ -12,7 +12,10 @@
 50, 0
 50, 0
 [PeriodHardConstraints]
+1, AFTER, 2
+1, EXAM_COINCIDENCE, 2
 [RoomHardConstraints]
+1, ROOM EXCLUSIVE
 [InstitutionalWeightings]
 TWOINAROW, 7
 TWOINADAY, 5

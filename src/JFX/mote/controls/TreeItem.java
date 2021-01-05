@@ -11,12 +11,18 @@ public class TreeItem {
 	 */
 	private ArrayList<TreeItem> content = new ArrayList<TreeItem>();
 	private String text;
+	private Object obj;
 	private boolean state;
 	private int[] bound = new int[5];
 	private TreeItem c;
 	private String Parent;
 	public TreeItem(String string,String parent ) {
 		text = string;
+		Parent = parent;
+	}
+	public TreeItem(Object obj,String string,String parent ) {
+		text = string;
+		this.obj = obj;
 		Parent = parent;
 	}
 	public String getText() {
@@ -94,5 +100,14 @@ public class TreeItem {
 	 */
 	public String getParent() {
 		return Parent;
+	}
+	/**
+	 * @return the obj
+	 */
+	public Object getObj() {
+		return obj;
+	}
+	public void add(Object y,String e) {
+		content.add(new TreeItem(y,e,this.text));
 	}
 }

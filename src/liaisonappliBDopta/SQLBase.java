@@ -121,18 +121,28 @@ public class SQLBase {
 		ls = ls.stream().distinct().collect(Collectors.toList());
 		return ls;
 	}
-	public static List<String> getElevesIn(String x) {
-		List<String> ls = new ArrayList<String>();
+	public static List<Object[]> getElevesIn(String x) {
+		List<Object[]> ls = new ArrayList<Object[]>();
 		String a = x.split(" ")[0].substring(1);
 		String b = x.substring(2+a.length());
 		System.out.println("SELECT EleveNom,ElevePrenom FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
-		ResultSet rs = Query("SELECT EleveNom,ElevePrenom,EleveNum FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
+		ResultSet rs = Query("SELECT EleveNom, ElevePrenom, EleveNum, Promo, Annee FROM eleves Where Annee = "+a+" AND Promo = '"+b+"'");
 		if(rs != null) {			try {
 				while (rs.next()) {
 					String nom= rs.getString("EleveNom");
 					String prenom= rs.getString("ElevePrenom");
-					String num= rs.getString("EleveNum");
-					ls.add(nom+"\t"+prenom+"\t"+num);
+					int numero= rs.getInt("EleveNum");
+					String filliere= rs.getString("Promo");
+					int annee= rs.getInt("Annee");
+					Object[] ob = new Object[2];
+					try {
+						Etudiant et = new Etudiant(numero, nom, prenom, filliere, annee);
+						ob[0] = (et);
+					} catch (NamingException e) {
+					}
+					String f = nom+"\t"+prenom+"\t"+numero;
+					ob[1] = f;
+					ls.add(ob);						
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();

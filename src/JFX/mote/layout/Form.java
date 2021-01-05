@@ -8,7 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.VBox;
 
 public class Form extends Panel<VBox>{
-	private Submit submit;
+	protected Submit submit;
 	public void  setSubmitAction(EventHandler<ActionEvent> onclick) {
 		submit.setOnclick(onclick);
 	}
