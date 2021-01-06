@@ -32,7 +32,7 @@ class CreationFichTest {
 		List<Examen> le1 = new ArrayList<Examen>();
 		List<Examen> le2 = new ArrayList<Examen>();
 		Examen e1 = new Examen("aaa", "informatique", 150, 0, null);
-		Examen e2 = new Examen("qcm", "génie logiciel", 210, 0, null);
+		Examen e2 = new Examen("qcm", "gÃ©nie logiciel", 210, 0, null);
 		e1.addListEtudiant(let);
 		e2.addListEtudiant(let);
 		le1.add(e1);
@@ -50,11 +50,11 @@ class CreationFichTest {
 		lc1.add(c1);
 		lc2.add(c2);
 		
-		String doss1 = "C:/exam/exam1.exam";
-		String doss2 = "C:/exam/exam2.exam";
-		String doss3 = "C:/exam/exam3.exam";
-		String doss4 = "C:/exam/exam4.exam";
-		String doss5 = "C:/exam/exam5.exam";
+		String doss1 = "data/testexam1.exam";
+		String doss2 = "data/testexam2.exam";
+		String doss3 = "data/testexam3.exam";
+		String doss4 = "data/testexam4.exam";
+		String doss5 = "data/testexam5.exam";
 		
 		CreationFich a = new CreationFich(le1,lc1,ls1,doss1);
 		CreationFich b = new CreationFich(le1,lc1,ls1,doss2);
