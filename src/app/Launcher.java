@@ -46,14 +46,26 @@ public class Launcher {
                     pass = pass + chars.charAt(randomInt);
                 }
                 try {
-                    ClassMail.sendMail(email,"CrÈation de votre compte","Bonjour,\nVotre compte du groupe "+accType+" a ÈtÈ crÈe.\nVotre mot de passe est:\n"+pass);
+               	ClassMail.sendMail(email,"Cr√©ation de votre compte","Bonjour,\nVotre compte du groupe "+accType+" a √©t√© cr√©e.\nVotre mot de passe est:\n"+pass);
+		int status = 0;
+                if(accType=="Secretariat") {
+                    status=1;
+                }else if(accType=="Scolarit√©") {
+                    status=2;
+                }else if(accType=="Admin") {
+                    status=3;
+		}
+                Connexion add = new Connexion();
+                System.out.println("INSERT INTO login (LoginUser, LoginPass, LoginStatus, LoginMail) VALUES (\'"+user+"\',\'"+pass+"\',\'"+status+"\',\'"+email+"\')");
+                add.RequeteDB("INSERT INTO login (LoginUser, LoginPass, LoginStatus, LoginMail) VALUES (\'"+user+"\',\'"+pass+"\',\'"+status+"\',\'"+email+"\')");
+                System.out.println("Done!");  	
                 } catch (Exception e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
             }else {
-                System.out.println("Compte dÈj‡ existant.");
-                inscription.setErrorMessage("Un compte avec des informations similaires existe dÈj‡.");
+                System.out.println("Compte d√©j√† existant.");
+                inscription.setErrorMessage("Un compte avec des informations similaires existe d√©j√†.");
             }
 		});
 		
@@ -65,11 +77,9 @@ public class Launcher {
 		});
 		//MainApp
 		lectureBD a = new lectureBD();
-		List<TimeExamElement> diary = Arrays.asList(
-				new TimeExamElement("F 021","FranÁais",LocalDateTime.of(2021, 01, 01, 12, 30),LocalTime.of(1, 30),null)
-				);
+		
 		List<List<TimeExamElement>> diaries = Arrays.asList(
-				diary,
+				
 				a.execute()
 				);
 		MainApp maz = new MainApp("calendar");
