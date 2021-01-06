@@ -32,6 +32,9 @@ public class DateCell extends ListLine {
 		this.month = month;
 		this.year = year;
 	}
+	/**
+	 *This method update the style of the current component;
+	 */
 	@Override
 	protected void updateStyle() {
 		setBackground(new Background(new BackgroundFill(backgroundColor,new CornerRadii(20),null)));

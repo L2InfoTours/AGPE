@@ -140,6 +140,9 @@ public class Spinner extends Component{
 	public int getValue() {
 		return value;
 	}
+	/**
+	 *This method update the style of the current component;
+	 */
 	@Override
 	protected void updateStyle() {
 		text.setTextFill(textColor);

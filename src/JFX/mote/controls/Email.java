@@ -18,6 +18,11 @@ public class Email extends TextField {
 	public void init() {
 		super.init();
 	}
+	/** set the Text of the component.
+	 * @param string
+	 * 
+	 * @see TextField 
+	 */
 	@Override
 	public String getText() {
 		String text = super.getText();

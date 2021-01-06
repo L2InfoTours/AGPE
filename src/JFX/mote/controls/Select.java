@@ -151,6 +151,9 @@ public class Select extends Component{
 	public void setOnchange(EventHandler<? super KeyEvent> onchange) {
 		this.onchange = onchange;
 	}
+	/** set the Text of the component.
+	 * @param string
+	 */
 	public String getText() {
 		return input.getText();
 	}
@@ -161,6 +164,9 @@ public class Select extends Component{
 	public String getValue() {
 		return value;
 	}
+	/**
+	 *This method update the style of the current component;
+	 */
 	@Override
 	protected void updateStyle() {
 		text.setTextFill(textColor);

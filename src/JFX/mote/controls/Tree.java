@@ -201,6 +201,9 @@ public class Tree extends Component{
 	public void setOnChange(EventHandler<MouseEvent> onchange) {
 		this.onchange = onchange;
 	}
+	/**
+	 *This method update the style of the current component;
+	 */
 	@Override
 	protected void updateStyle() {
 		text.setTextFill(textColor);

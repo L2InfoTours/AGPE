@@ -7,6 +7,7 @@ import java.util.List;
 
 import JFX.mote.Component;
 import JFX.mote.MathUtils;
+import JFX.mote.layout.Panel;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
@@ -33,6 +34,12 @@ public class TimePicker extends Component {
 		super();
 		name = string;
 	}
+	/**
+	 * initializer component
+	 * @see Component
+	 * if it not made on the panel 
+	 * @see Panel
+	 */
 	@Override
 	public void init() {
 		VBox pane = new VBox();
@@ -126,17 +133,22 @@ public class TimePicker extends Component {
 	private static final Color colored = Color.rgb(0x22, 0xAA, 0xFF);
 	private static final Color white = Color.rgb(0xee,0xee,0xee);
 	/**
+	 * get the value of the component
 	 * @return the value
 	 */
 	public LocalTime getValue() {
 		return value;
 	}
 	/**
+	 * set the value of the component
 	 * @param value the value to set
 	 */
 	public void setValue(LocalTime value) {
 		this.value = value;
 	}
+	/**
+	 *This method update the style of the current component;
+	 */
 	@Override
 	protected void updateStyle() {
 		text.setTextFill(textColor);
