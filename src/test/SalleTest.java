@@ -12,7 +12,7 @@ class SalleTest {
 	@Test
 	void testSalle() {
 		Salle a = new Salle("F201", "pc", 210);
-		assertEquals("qcm",a.getNom());
+		assertEquals("F201",a.getNom());
 		assertEquals("pc",a.getMateriel());
 		assertEquals(210,a.getCapacite());
 	}
