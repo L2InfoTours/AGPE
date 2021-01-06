@@ -12,8 +12,15 @@ import liaisonappliBDopta.CrenauHoraire;
 
 class CrenauHoraireTest {
 
-	
-
+	@Test
+	void testCrenauHoraire() throws NamingException, SQLException {
+		CrenauHoraire c1 = new CrenauHoraire("13:05:2010", "09:00:00", 210);
+		
+		assertEquals(210,c1.getDuree());
+		assertEquals("09:00:00",c1.getHeure());
+		assertEquals("13:05:2010",c1.getDate());
+		
+	}
 	@Test
 	void testFormate() throws NamingException, SQLException {
 		CrenauHoraire c1 = new CrenauHoraire("13:05:2010", "09:00:00", 210);

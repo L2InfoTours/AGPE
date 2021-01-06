@@ -4,46 +4,18 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
+import liaisonappliBDopta.ContrainteExam;
+import liaisonappliBDopta.ContrainteSalle;
+
 class ContrainteExamTest {
 
 	@Test
 	void testContrainteExam() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetArg2() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetArg2() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testContrainte() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetType() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetType() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetArg() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetArg() {
-		fail("Not yet implemented");
+			ContrainteExam a = new ContrainteExam(5, "AFTER", 4);
+			assertEquals("AFTER",a.getType());
+			assertEquals(5,a.getArg());
+			assertEquals(4,a.getArg2());
+		
 	}
 
 }

@@ -2,63 +2,26 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.SQLException;
+
+import javax.naming.NamingException;
+
 import org.junit.jupiter.api.Test;
+
+import liaisonappliBDopta.Etudiant;
 
 class EtudiantTest {
 
 	@Test
-	void testEtudiant() {
-		fail("Not yet implemented");
+	void testEtudiant() throws NamingException, SQLException {
+		Etudiant a = new Etudiant(21903697, "martin", "tom", "info", 2);
+		assertEquals(21903697,a.getNumeroetu());
+		assertEquals("martin",a.getNom());
+		assertEquals("tom",a.getPrenom());
+		assertEquals("info",a.getPromo());
+		assertEquals(2,a.getAnnee());
 	}
 
-	@Test
-	void testAddBD() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetId() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetNumeroetu() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetNumeroetu() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetNom() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetNom() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetPrenom() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetPrenom() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetPromo() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetPromo() {
-		fail("Not yet implemented");
-	}
+	
 
 }
