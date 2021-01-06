@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"app"},{"l":"gui.page"},{"l":"gui.test"},{"l":"JFX.mote"},{"l":"JFX.mote.components"},{"l":"JFX.mote.controls"},{"l":"JFX.mote.layout"},{"l":"liaisonappliBDopta"},{"l":"sendMails"},{"l":"tester"}]
