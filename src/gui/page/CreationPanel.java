@@ -64,8 +64,8 @@ public class CreationPanel extends Form{
 		add(topic);
 		materiel.setList(SQLBase.getMateriel());
 		add(materiel);
-		add(date);
-		add(time);
+		//add(date);
+		//TomTadd(time);
 		add(duree);
 		type.setList(Arrays.asList(Oral,Ecrit));
 		add(type);
@@ -78,6 +78,7 @@ public class CreationPanel extends Form{
 		add(eleveTree);
 		super.setSubmitAction(event->{
 			System.out.println("ZERTYUI");
+			/*
 			LocalDate dateday = date.getValue();
 			LocalTime timeday = time.getValue();
 			LocalDateTime datetime =LocalDateTime.of(
@@ -85,7 +86,7 @@ public class CreationPanel extends Form{
 					dateday.getMonth(),
 					dateday.getDayOfMonth(),
 					timeday.getHour(),
-					timeday.getMinute());
+					timeday.getMinute());*/
 			try {
 				Examen ex = new Examen(nom.getText(),
 						topic.getValue(),
