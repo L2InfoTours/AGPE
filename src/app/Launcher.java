@@ -79,7 +79,6 @@ public class Launcher {
 		
 		// Login
 		Login login = new Login("login");
-		login.setErrorMessage("invalid");
 		login.setSubmitAction(event->{
 			Authentification Authen = new Authentification(login.getUsername(),login.getPassWord());
 			if (Authen.getAutorise()) {
