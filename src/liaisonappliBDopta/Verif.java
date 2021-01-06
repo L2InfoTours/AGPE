@@ -21,7 +21,7 @@ public class Verif {
         String requete = "SELECT LoginUser,LoginMail FROM login WHERE ( LoginUser = '"+username+"' AND LoginMail = '"+mail+"')";
         System.out.println(requete);
         Statement st = null;
-        int rs = 0;
+       
         try {
             cn= DriverManager.getConnection(url, login, password);
             st = cn.createStatement();
@@ -35,7 +35,7 @@ public class Verif {
             }
         }
         catch(SQLException e) {
-            System.err.println("Erreur requète SQL");
+            System.err.println("Erreur requÃ¨te SQL");
             e.printStackTrace(); 
             return false;
         }
