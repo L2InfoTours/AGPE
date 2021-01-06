@@ -1,6 +1,8 @@
 package gui.page;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import JFX.mote.layout.Form;
 import JFX.mote.layout.Popup;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.DatePicker;
 import javafx.scene.paint.Color;
 import liaisonappliBDopta.Etudiant;
 import liaisonappliBDopta.Examen;
@@ -38,12 +41,14 @@ public class CreationPanel extends Form{
 	private Text errormsg;
 	private Select type;
 	private EventHandler<ActionEvent> onclick = x->{};
+	private DatePicker date;
 	public CreationPanel() {
 		super("Ajouter un examen",null);
-		nom = new TextField("Identifiant");
+		nom = new TextField("nom");
 		nom.setColor(Color.WHITESMOKE);
 		topic = new Select("Matiere");
 		topic.setColor(Color.WHITESMOKE);
+		date = new DatePicker();
 		duree = new Spinner("Durée");
 		duree.setColor(Color.WHITESMOKE);
 		time = new TimePicker("Heure");
@@ -59,6 +64,7 @@ public class CreationPanel extends Form{
 		add(topic);
 		materiel.setList(SQLBase.getMateriel());
 		add(materiel);
+		add(date);
 		add(time);
 		add(duree);
 		type.setList(Arrays.asList(Oral,Ecrit));
@@ -72,6 +78,14 @@ public class CreationPanel extends Form{
 		add(eleveTree);
 		super.setSubmitAction(event->{
 			System.out.println("ZERTYUI");
+			LocalDate dateday = date.getValue();
+			LocalTime timeday = time.getValue();
+			LocalDateTime datetime =LocalDateTime.of(
+					dateday.getYear(),
+					dateday.getMonth(),
+					dateday.getDayOfMonth(),
+					timeday.getHour(),
+					timeday.getMinute());
 			try {
 				Examen ex = new Examen(nom.getText(),
 						topic.getValue(),
