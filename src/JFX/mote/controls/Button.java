@@ -11,6 +11,12 @@ public class Button extends Component {
 	private String value;
 	private EventHandler<ActionEvent> onclick;
 	private javafx.scene.control.Button btn;
+	/**
+	 * Create Button named
+	 * @param value
+	 * and setan onclick Action
+	 * @param onclick
+	 */
 	public Button(String value,EventHandler<ActionEvent> onclick) {
 		super(); 
 		this.value = value;
@@ -26,6 +32,10 @@ public class Button extends Component {
 		add(btn);
 		loaded =  true;
 	}
+	/**
+	 * Set an Action when you click over the button
+	 * @param onclick
+	 */
 	public void setOnclick(EventHandler<ActionEvent> onclick) {
 		this.onclick = onclick;
 		if(loaded) {

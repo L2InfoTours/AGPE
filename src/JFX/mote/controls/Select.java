@@ -157,6 +157,9 @@ public class Select extends Component{
 	public String getText() {
 		return input.getText();
 	}
+	/**
+	 * @param list
+	 */
 	public void setList(List<String> list) {
 		list = list==null?new ArrayList<String>():list;
 		this.list = list;

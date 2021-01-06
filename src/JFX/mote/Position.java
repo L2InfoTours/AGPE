@@ -1,5 +1,9 @@
 package JFX.mote;
 
+/**
+ * @author Mote
+ *
+ */
 public enum Position {
 	Top,
 	Left,

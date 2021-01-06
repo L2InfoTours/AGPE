@@ -20,9 +20,16 @@ import javafx.scene.paint.Color;
 
 public class Flex extends Component {
 	private ScrollPane scroll;
+	/**
+	 * @return get the Flex direction type
+	 */
 	public int getType() {
 		return type;
 	}
+	/**
+	 * set the Flex direction type
+	 * @param type (Flex.Row or Flex.Column)
+	 */
 	public void setType(int type) {
 		if(table!=null) {
 			table.getChildren().clear();
@@ -55,12 +62,21 @@ public class Flex extends Component {
 	public boolean isFollow() {
 		return follow;
 	}
+	/**
+	 * @param follow
+	 */
 	public void setFollow(boolean follow) {
 		this.follow = follow;
 	}
+	/**
+	 * Create Flex list from @param type (Flex.Row or Flex.Column)
+	 */
 	public Flex(int type) {
 		this.setType(type);
 	}
+	/**
+	 * Create Flex list in Column
+	 */
 	public Flex() {
 		this(0);
 	}
@@ -92,14 +108,33 @@ public class Flex extends Component {
 			//table.autosize();
 		}
 	}
+	/**
+	 * create a {@link Component} from
+	 * @param string
+	 * and add it 
+	 * to the flex list
+	 */
 	public void add(String string) {
 		content.add(new ListLine(string));
 		update();
 	}
+	/**
+	 * add 
+	 * @param componnent
+	 * to the flex list
+	 */
 	public void add(Component componnent) {
 		content.add(componnent);
 		update();
 	}
+	/**
+	 * create a {@link Component} from
+	 * @param string
+	 * and
+	 * @param onclickAction
+	 *  and add it 
+	 * to the flex list
+	 */
 	public void add(String string,EventHandler<? super MouseEvent> onclick) {
 		content.add(new ListLine(string,onclick));
 		update();
@@ -147,6 +182,9 @@ public class Flex extends Component {
 	public void heredite(Component component) {
 		super.heredite(component);
 	}
+	/**
+	 * clear the Flex list
+	 */
 	public void clear() {
 		content.clear();
 		table.getChildren().clear();

@@ -8,6 +8,10 @@ import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
+/**
+ * @author Mote
+ *
+ */
 public class Layout extends GridPane{
 	public static final int DARKMODE = 1;
 	public static final int LIGHTMODE = 0;
@@ -28,9 +32,15 @@ public class Layout extends GridPane{
 	private static boolean loaded;
 	private double spacing = 2;
 	
+	/**
+	 * @return
+	 */
 	public double getSpacing() {
 		return spacing;
 	}
+	/**
+	 * @param spacing
+	 */
 	public void setSpacing(double spacing) {
 		this.spacing = spacing;
 	}
@@ -38,6 +48,9 @@ public class Layout extends GridPane{
 	public Layout() {
 		super();
 	}
+	/**
+	 * @param display
+	 */
 	public void setDisplay(LayoutDisplay display) {
 		this.display = display;
 		switch(display) {
@@ -67,6 +80,9 @@ public class Layout extends GridPane{
 		
 	}
 
+	/**
+	 * @param nodes
+	 */
 	public void add(Component ...nodes) {
 		if(loaded) {	
 			Stream.of(nodes).forEach(
@@ -76,6 +92,9 @@ public class Layout extends GridPane{
 			Stream.of(nodes).forEach(childs::add);			
 		}
 	}
+	/**
+	 * @param node
+	 */
 	private void adder(Component node) {
 		if(mode == DARKMODE) {	
 			node.setColor(Color.grayRgb(0xee));	
@@ -98,6 +117,9 @@ public class Layout extends GridPane{
 	public void clear() {
 		childs.clear();
 	}
+	/**
+	 * 
+	 */
 	public void init() {
 		childs.forEach(x->{
 			adder(x);

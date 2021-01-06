@@ -3,11 +3,22 @@ package JFX.mote;
 import JFX.mote.layout.Panel;
 
 public class Frame {
+	/**
+	 * Create Window Frame which name 
+	 * @param title
+	 */
 	public Frame(String title) {
 		super();
 		App.title = title;
 		App.setup();
 	}
+	/** Create Window Frame which name
+	 * @param title
+	 * and has as 
+	 * @param Width
+	 * and
+	 * @param Height
+	 */
 	public Frame(String title,int Width,int Height) {
 		this(title);
 		App.height = Height;

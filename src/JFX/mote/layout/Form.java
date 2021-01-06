@@ -9,9 +9,19 @@ import javafx.scene.layout.VBox;
 
 public class Form extends Panel<VBox>{
 	protected Submit submit;
+	
+	/**
+	 * The
+	 * @param onclick
+	 * was executed when the Submit Button is Pressed
+	 */
 	public void  setSubmitAction(EventHandler<ActionEvent> onclick) {
 		submit.setOnclick(onclick);
 	}
+	/**
+	 * @param name
+	 * @param onclick
+	 */
 	public Form(String name,EventHandler<ActionEvent> onclick){
 		super(new VBox(),name);
 		if(onclick==null) {
@@ -21,6 +31,9 @@ public class Form extends Panel<VBox>{
 		layout.setAlignment(Pos.CENTER);
 		setAlignment(Pos.CENTER);
 	}
+	/**
+	 * open the form to access to submit Action 
+	 */
 	public void open() {
 		add(submit);
 		
