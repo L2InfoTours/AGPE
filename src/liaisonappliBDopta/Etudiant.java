@@ -86,4 +86,12 @@ public class Etudiant {
 	public void setPromo(String promo) {
 		this.promo = promo;
 	}
+	public int getAnnee() {
+		return this.annee;
+	}
+
+
+	public void setAnnee(int annee) {
+		this.annee = annee;
+	}
 }
