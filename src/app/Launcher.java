@@ -8,6 +8,7 @@ import java.util.List;
 import javax.naming.NamingException;
 
 import JFX.mote.Frame;
+import gui.page.DataRegister;
 import gui.page.Inscription;
 import gui.page.Login;
 import gui.page.MainApp;
@@ -68,10 +69,8 @@ public class Launcher {
 		List<TimeExamElement> diary = Arrays.asList(
 				new TimeExamElement("F 021","Français",LocalDateTime.of(2021, 01, 01, 12, 30),LocalTime.of(1, 30),null)
 				);
-		List<List<TimeExamElement>> diaries = Arrays.asList(
-				diary,
-				a.execute()
-				);
+		List<List<TimeExamElement>> diaries = Arrays.asList(diary,a.execute());
+		DataRegister dr = new DataRegister("enregistrer");
 		MainApp maz = new MainApp("calendar");
 		maz.setListener(values->{
 			return SQLBase.getExams(values);
@@ -81,6 +80,7 @@ public class Launcher {
 		Login login = new Login("login");
 		login.setForgetAction(event->{
 			/*Mot de Pass Oubliée*/
+			System.out.println("Forget PW");
 		});
 		login.setSubmitAction(event->{
 			Authentification Authen = new Authentification(login.getUsername(),login.getPassWord());
@@ -88,7 +88,8 @@ public class Launcher {
 				MenuApp menu = new MenuApp("menu", login.getUsername());
 				menu.setApp(Arrays.asList(
 						"inscription",
-						"calendar"
+						"calendar",
+						"enregistrer"
 						));
 				login.setNext("menu");
 				login.next();
