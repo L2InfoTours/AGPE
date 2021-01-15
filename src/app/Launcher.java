@@ -79,6 +79,9 @@ public class Launcher {
 		
 		// Login
 		Login login = new Login("login");
+		login.setForgetAction(event->{
+			/*Mot de Pass Oubliée*/
+		});
 		login.setSubmitAction(event->{
 			Authentification Authen = new Authentification(login.getUsername(),login.getPassWord());
 			if (Authen.getAutorise()) {
